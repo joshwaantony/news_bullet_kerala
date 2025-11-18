@@ -68,7 +68,7 @@ export default function Videos() {
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="w-full py-20 text-center bg-gradient-to-br from-[#E87331] to-[#563D2F] text-white">
+      <section className="w-full py-20 pt-36 text-center bg-gradient-to-br from-[#E87331] to-[#563D2F] text-white">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Latest Stories

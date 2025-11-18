@@ -5,8 +5,8 @@ import { useEffect } from "react";
 export default function LoadingPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
-      window.location.href = "/donation";  // Redirect after 2 sec
-    }, 2000);
+      window.location.href = "/donation";  // Redirect after 3 sec
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);

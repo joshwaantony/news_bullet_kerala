@@ -13,7 +13,7 @@ export default function ContactPage() {
     <Navbar/>
 
     
-    <div className="min-h-screen bg-gradient-to-r from-[#E87331] to-[#563D2F] py-16 px-6 text-white">
+    <div className="min-h-screen bg-gradient-to-r from-[#E87331] to-[#563D2F] py-16 pt-28 px-6 text-white">
       {/* Heading */}
       <div className="max-w-3xl mx-auto text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -34,10 +34,10 @@ export default function ContactPage() {
     {/* Reusable Style */}
     {[
       { title: "YouTube", icon: <FaYoutube /> , link: "https://www.youtube.com/@newsbulletkerala" },
-      { title: "Email", icon: <FaEnvelope />, link: "mailto" },
-      { title: "Facebook", icon: <FaFacebook />, link: "https://" },
-      { title: "Instagram", icon: <FaInstagram />, link: "https://" },
-      { title: "WhatsApp", icon: <FaWhatsapp />, link: "https://wa.me/9567567" },
+      { title: "Email", icon: <FaEnvelope />, link: "" },
+      { title: "Facebook", icon: <FaFacebook />, link: "https://www.facebook.com/nbkerala" },
+      { title: "Instagram", icon: <FaInstagram />, link: "https://www.instagram.com/newsbullet_kerala" },
+      { title: "WhatsApp", icon: <FaWhatsapp />, link: "https://wa.me/8075757976" },
     ].map((item, index) => (
       <a
         key={index}
