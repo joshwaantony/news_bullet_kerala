@@ -13,7 +13,7 @@ export default function ContactPage() {
     <Navbar/>
 
     
-    <div className="min-h-screen bg-gradient-to-r from-[#E87331] to-[#563D2F] py-16 pt-28 px-6 text-white">
+    <div className="min-h-screen bg-gradient-to-r from-[#E87331] to-[#563D2F] py-16  px-6 text-white">
       {/* Heading */}
       <div className="max-w-3xl mx-auto text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
