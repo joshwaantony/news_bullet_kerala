@@ -1,6 +1,3 @@
-
-
-
 "use client";
 
 import { useState } from "react";
@@ -18,16 +15,16 @@ export default function Navbar() {
   return (
     <nav className="w-full bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-
         {/* Logo */}
         <div className="flex items-center gap-3">
           <img src="/logo.jpg" alt="Logo" className="w-10 h-10 rounded-full" />
-          <span className="font-semibold text-lg text-black">News Bullet Kerala</span>
+          <span className="font-semibold text-lg text-black">
+            News Bullet Kerala
+          </span>
         </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
-
           <Link
             href="/video"
             className={`${isActive("/video")} font-medium hover:opacity-70`}
@@ -43,8 +40,10 @@ export default function Navbar() {
           </Link>
 
           <Link href="/support">
-            <button className="px-5 py-2 text-white font-semibold rounded-lg shadow
-              bg-gradient-to-r from-orange-400 to-orange-700 hover:opacity-90 transition">
+            <button
+              className="px-5 py-2 text-white font-semibold rounded-lg shadow
+              bg-gradient-to-r from-orange-400 to-orange-700 hover:opacity-90 transition"
+            >
               Support Us
             </button>
           </Link>
@@ -63,7 +62,6 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-white shadow-md border-t animate-fadeIn">
           <div className="flex flex-col items-start px-6 py-4 gap-4">
-
             <Link
               href="/video"
               className={`${isActive("/video")} font-medium`}

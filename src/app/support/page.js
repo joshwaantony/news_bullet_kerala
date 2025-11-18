@@ -1,57 +1,3 @@
-// import React from "react";
-// import Navbar from "../components/Navbar";
-
-// function page() {
-//   return <div>
-//     <Navbar/>
-//         <div className=" min-h-screen flex flex-col items-center justify-center px-4 
-//       bg-gradient-to-br from-[#E87331] to-[#563D2F] text-white text-center">
-
-//       {/* Logo */}
-//       <img
-//         src="/logo.jpg"
-//         alt="Logo"
-//         className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 mb-6 rounded-full"
-//       />
-
-//       {/* Heading */}
-//       <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 leading-tight">
-//         Support News Bullet Kerala!
-//       </h1>
-
-//       {/* Subheading */}
-//       <p className="text-base sm:text-lg max-w-xl md:max-w-2xl leading-relaxed mb-6 px-2">
-//         Your donations help us bring authentic, independent news stories to you.
-//       </p>
-
-//       {/* Description */}
-//       <p className="text-sm sm:text-base max-w-md sm:max-w-xl md:max-w-2xl leading-relaxed mb-10 px-3">
-//         At News Bullet Kerala, we connect the logic behind every story.
-//         We believe in journalism that empowers you to think critically and stay
-//         informed about what truly matters in our community.
-//       </p>
-
-//       {/* Buttons */}
-//       <div className="flex flex-col gap-4 w-full max-w-xs sm:max-w-md">
-//         {/* Donate button */}
-//         <button className="bg-white text-orange-700 font-semibold py-3 rounded-xl shadow-md 
-//           hover:bg-gray-100 transition-all">
-//           Donate & Support
-//         </button>
-
-  
-//       </div>
-
-//       {/* Bottom small text */}
-//       <p className="mt-8 text-xs sm:text-sm opacity-90 px-2 max-w-sm">
-//         You can continue without donating, but your support keeps us independent.
-//       </p>
-//     </div>
-   
-//   </div>;
-// }
-
-// export default page;
 
 
 
@@ -68,7 +14,8 @@ export default function Page() {
 
   const startPayment = async () => {
     if (!amount || Number(amount) < 1) {
-      alert("Please enter a valid amount");
+    //   alert("Please enter a valid amount");
+    console.log("Please enter a valid amount")
       return;
     }
 
@@ -90,7 +37,8 @@ export default function Page() {
       console.log("ORDER:", orderData);
 
       if (!orderData.success) {
-        alert("Order creation failed");
+        // alert("Order creation failed");
+        console.log("Order creation failed")
         setLoading(false);
         return;
       }
@@ -121,8 +69,9 @@ export default function Page() {
           );
 
           const verifyData = await verifyRes.json();
-          if (verifyData.success) alert("Payment Successful! 🎉");
-          else alert("Payment Verification Failed ❌");
+          if (verifyData.success)
+             console.log("Payment Successful! ");
+          else console.log("Payment Verification Failed ");
         },
 
         theme: {
@@ -134,7 +83,7 @@ export default function Page() {
       razorpay.open();
     } catch (err) {
       console.error(err);
-      alert("Error processing payment");
+      console.log("Error processing payment");
     }
 
     setLoading(false);

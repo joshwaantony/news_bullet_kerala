@@ -1,8 +1,3 @@
-
-
-
-
-
 "use client";
 
 import { useEffect, useState, useRef } from "react";
@@ -70,17 +65,21 @@ export default function Videos() {
 
   return (
     <div className="min-h-screen bg-white">
-        <Navbar/>
+      <Navbar />
 
       {/* HERO SECTION */}
       <section className="w-full py-20 text-center bg-gradient-to-br from-[#E87331] to-[#563D2F] text-white">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Latest Stories</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Latest Stories
+          </h2>
           <p className="text-lg md:text-xl font-medium mb-2 opacity-95">
-            Watch our latest news reports and investigative stories from across Kerala
+            Watch our latest news reports and investigative stories from across
+            Kerala
           </p>
           <p className="text-sm md:text-base opacity-90 leading-relaxed">
-            Connecting the logic behind every story — Independent journalism you can trust
+            Connecting the logic behind every story — Independent journalism you
+            can trust
           </p>
         </div>
       </section>
@@ -91,8 +90,9 @@ export default function Videos() {
           Featured Reports & Investigations
         </h3>
         <p className="text-center max-w-3xl mx-auto text-gray-600 mb-10">
-          At News Bullet Kerala, we believe in journalism that empowers you to think critically.
-          Our mission is to bring authentic news stories that matter to our community.
+          At News Bullet Kerala, we believe in journalism that empowers you to
+          think critically. Our mission is to bring authentic news stories that
+          matter to our community.
         </p>
 
         {/* VIDEO GRID */}
@@ -115,55 +115,33 @@ export default function Videos() {
                 />
               </a>
 
-              {/* Details */}
-              {/* <div className="p-4">
-                <h4 className="font-semibold text-black text-lg line-clamp-2 mb-2">
+              <div className="px-5 pt-2 pb-5 bg-white">
+                {/* Title */}
+                <h4 className="font-semibold text-black text-lg leading-snug mb-3 line-clamp-2 hover:text-[#945835] transition">
                   {v.snippet?.title}
                 </h4>
 
-                <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                {/* Description */}
+                <p className="text-sm text-[#896F5D] mb-5 line-clamp-3 leading-relaxed">
                   {v.snippet?.description}
                 </p>
 
+                {/* Divider */}
+                <div className="w-full h-px bg-gray-200 mb-4"></div>
+
+                {/* Button */}
                 <a
                   href={`https://www.youtube.com/watch?v=${v.id.videoId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full px-4 py-2 border rounded-lg text-gray-600 text-sm font-medium hover:bg-gray-100"
-                >
-                  Watch Video
-                </a>
-              </div> */}
-              <div className="px-5 pt-2 pb-5 bg-white">
-
-  {/* Title */}
-  <h4 className="font-semibold text-black text-lg leading-snug mb-3 line-clamp-2 hover:text-[#945835] transition">
-    {v.snippet?.title}
-  </h4>
-
-  {/* Description */}
-  <p className="text-sm text-[#896F5D] mb-5 line-clamp-3 leading-relaxed">
-    {v.snippet?.description}
-  </p>
-
-  {/* Divider */}
-  <div className="w-full h-px bg-gray-200 mb-4"></div>
-
-  {/* Button */}
-  <a
-    href={`https://www.youtube.com/watch?v=${v.id.videoId}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-full block text-sm text-center px-4 py-1 rounded-lg
+                  className="w-full block text-sm text-center px-4 py-1 rounded-lg
               border border-[#533D2E]
                text-black font-medium shadow-md hover:opacity-90 transition-all
                active:scale-95"
-  >
-    Watch Video
-  </a>
-
-</div>
-
+                >
+                  Watch Video
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -178,7 +156,9 @@ export default function Videos() {
           )}
 
           {!hasMore && (
-            <p className="text-gray-500 text-center">No more videos available.</p>
+            <p className="text-gray-500 text-center">
+              No more videos available.
+            </p>
           )}
         </div>
       </section>
