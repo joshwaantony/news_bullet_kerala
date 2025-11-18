@@ -29,8 +29,26 @@
 // }
 
 
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
+// import "./globals.css";
+
+// export const metadata = {
+//   title: "News Bullet Kerala",
+// };
+
+// export default function RootLayout({ children }) {
+//   return (
+//     <html lang="en">
+//       <body>
+//         {/* <Navbar /> */}
+//         {children}
+//       </body>
+//     </html>
+//   );
+// }
+
 import "./globals.css";
+import Script from "next/script";
 
 export const metadata = {
   title: "News Bullet Kerala",
@@ -39,8 +57,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="afterInteractive"
+        />
+      </head>
+
       <body>
-        {/* <Navbar /> */}
         {children}
       </body>
     </html>

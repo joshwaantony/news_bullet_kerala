@@ -34,10 +34,10 @@ export default function ContactPage() {
     {/* Reusable Style */}
     {[
       { title: "YouTube", icon: <FaYoutube /> , link: "https://www.youtube.com/@newsbulletkerala" },
-      { title: "Email", icon: <FaEnvelope />, link: "mailto:newsbulletkerala@gmail.com" },
-      { title: "Facebook", icon: <FaFacebook />, link: "https://facebook.com/newsbulletkerala" },
-      { title: "Instagram", icon: <FaInstagram />, link: "https://www.instagram.com/newsbulletkerala" },
-      { title: "WhatsApp", icon: <FaWhatsapp />, link: "https://wa.me/919876543210" },
+      { title: "Email", icon: <FaEnvelope />, link: "mailto" },
+      { title: "Facebook", icon: <FaFacebook />, link: "https://" },
+      { title: "Instagram", icon: <FaInstagram />, link: "https://" },
+      { title: "WhatsApp", icon: <FaWhatsapp />, link: "https://wa.me/9567567" },
     ].map((item, index) => (
       <a
         key={index}
