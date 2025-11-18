@@ -233,90 +233,91 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function Donation() {
+  const [proceedLoading, setProceedLoading] = useState(false);
+
+  const [btnLoading, setBtnLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const startPayment = async () => {
-    if (!amount || Number(amount) < 1) {
-      alert("Please enter a valid amount");
+ const startPayment = async () => {
+  if (!amount || Number(amount) < 1) {
+    alert("Please enter a valid amount");
+    return;
+  }
+
+  setProceedLoading(true);
+
+  try {
+    // CREATE ORDER
+    const orderRes = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/payments/create-order`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: Number(amount) }),
+      }
+    );
+
+    const orderData = await orderRes.json();
+    console.log("ORDER:", orderData);
+
+    if (!orderData.success) {
+      alert("Order creation failed");
+      setProceedLoading(false);
       return;
     }
 
-    setShowModal(false);
-    setLoading(true);
+    // RAZORPAY OPTIONS
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      amount: orderData.data.amount,
+      currency: orderData.data.currency,
+      order_id: orderData.data.id,
+      name: "News Bullet Kerala",
+      description: "Donation",
+      image: "/logo.jpg",
 
-    try {
-      // 1️⃣ Create Order
-      const orderRes = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/payments/create-order`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ amount: Number(amount) }),
-        }
-      );
-
-      const orderData = await orderRes.json();
-      console.log("ORDER RESPONSE:", orderData);
-
-      if (!orderData.success) {
-        alert("Order creation failed");
-        setLoading(false);
-        return;
-      }
-
-      // 2️⃣ Razorpay Checkout
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: orderData.data.amount,
-        currency: orderData.data.currency,
-        name: "News Bullet Kerala",
-        description: "Donation",
-        image: "/logo.jpg",
-        order_id: orderData.data.id,
-
-        handler: async function (response) {
-          console.log("PAYMENT RESPONSE:", response);
-
-          // 3️⃣ Verify Payment
-          const verifyRes = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/payments/verify`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                order_id: response.razorpay_order_id,
-                payment_id: response.razorpay_payment_id,
-                signature: response.razorpay_signature,
-              }),
-            }
-          );
-
-          const verifyData = await verifyRes.json();
-          console.log("VERIFY RESPONSE:", verifyData);
-
-          if (verifyData.success) {
-            alert("🎉 Payment Successful! Thank you!");
-          } else {
-            alert("❌ Payment Verification Failed!");
+      // VERIFY AFTER SUCCESS
+      handler: async function (response) {
+        const verifyRes = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/payments/verify`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              order_id: response.razorpay_order_id,
+              payment_id: response.razorpay_payment_id,
+              signature: response.razorpay_signature,
+            }),
           }
-        },
+        );
 
-        theme: {
-          color: "#E87331",
-        },
-      };
+        const verifyData = await verifyRes.json();
 
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong!");
-    }
+        if (verifyData.success) {
+          alert("Payment Successful! 🎉");
+        } else {
+          alert("Payment Verification Failed ❌");
+        }
 
-    setLoading(false);
-  };
+        // NOW close popup
+        setShowModal(false);
+      },
+
+      theme: { color: "#E87331" },
+    };
+
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong!");
+  }
+
+  setProceedLoading(false);
+};
+
 
   return (
     <div
@@ -346,13 +347,19 @@ export default function Donation() {
       </p>
 
       {/* Donate Button */}
-      <button
-        onClick={() => setShowModal(true)}
-        className="bg-white text-orange-700 font-semibold py-3 rounded-xl shadow-md 
-        hover:bg-gray-100 transition-all w-full max-w-xs"
-      >
-        Donate & Support
-      </button>
+   <button
+  onClick={() => {
+    setBtnLoading(true);
+    setTimeout(() => {
+      setShowModal(true);
+      setBtnLoading(false);
+    }, 300); // smooth effect
+  }}
+  className="bg-white text-orange-700 font-semibold py-3 rounded-xl shadow-md 
+  hover:bg-gray-100 transition-all w-full max-w-xs"
+>
+  {btnLoading ? "Loading..." : "Donate & Support"}
+</button>
 
       {/* Continue Without Donating */}
       <Link
@@ -456,14 +463,31 @@ export default function Donation() {
               >
                 Cancel
               </button>
-
+{/* 
               <button
                 onClick={startPayment}
                 className="w-1/2 py-2 rounded-xl text-white font-semibold bg-gradient-to-r 
                      from-orange-500 to-orange-700 hover:opacity-90 transition-all shadow-md"
               >
                 Proceed
-              </button>
+              </button> */}
+              <button
+  onClick={startPayment}
+  disabled={proceedLoading}
+  className="w-1/2 py-2 rounded-xl text-white font-semibold bg-gradient-to-r 
+             from-orange-500 to-orange-700 hover:opacity-90 transition-all shadow-md
+             disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  {proceedLoading ? (
+    <div className="flex items-center justify-center gap-2">
+      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+      Processing…
+    </div>
+  ) : (
+    "Proceed"
+  )}
+</button>
+
             </div>
           </div>
         </div>
