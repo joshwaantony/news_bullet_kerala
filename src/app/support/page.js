@@ -71,6 +71,7 @@ export default function Page() {
           const verifyData = await verifyRes.json();
           if (verifyData.success)
              console.log("Payment Successful! ");
+            
           else console.log("Payment Verification Failed ");
         },
 

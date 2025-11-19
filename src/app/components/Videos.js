@@ -353,7 +353,7 @@ export default function Videos() {
 
   const loaderRef = useRef(null);
 
-  const API_URL = "https://72t09sg9-3000.inc1.devtunnels.ms/api/youtube";
+const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/youtube`;
 
   // 🔥 Fetch videos from your backend paginated API
   const fetchVideos = async () => {
@@ -406,7 +406,7 @@ export default function Videos() {
   }, [hasMore, loading]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#e3e3e377]">
       <Navbar />
 
       {/* HERO SECTION */}
@@ -422,11 +422,20 @@ export default function Videos() {
         </div>
       </section> */}
 
-<section className="w-full h-[300px]  relative">
+<section className="w-full h-[300px] bg-white  relative">
   <img
     src="/banner.jpg"
     alt="Banner"
-    className="w-full h-full object-cover"
+    className="w-full h-full md:block hidden  object-cover"
+    
+
+  />
+    <img
+    src="/mobile.png"
+    alt="Banner"
+    className="w-full h-full md:hidden block object-contain"
+    
+
   />
 </section>
 

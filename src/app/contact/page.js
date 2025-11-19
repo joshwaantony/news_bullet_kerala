@@ -26,10 +26,10 @@ export default function ContactPage() {
 
       {/* White Card Box (Same as Support Page) */}
      <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur-xl text-black shadow-2xl 
-                rounded-3xl p-10 md:p-14">
+                rounded-3xl py-4 px-3 sm:p-8 md:p-14">
 
   {/* Single Column Items */}
-  <div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
 
     {/* Reusable Style */}
     {[
@@ -43,7 +43,7 @@ export default function ContactPage() {
         key={index}
         href={item.link}
         target="_blank"
-        className="group p-5 rounded-2xl border bg-white shadow-md hover:shadow-xl 
+        className="group p-3 sm:p-5 rounded-2xl border bg-white shadow-md hover:shadow-xl 
                    transition-all flex items-center justify-between hover:-translate-y-1
                    border-gray-200 hover:border-transparent hover:bg-gradient-to-r 
                    from-[#E87331] to-[#563D2F]"

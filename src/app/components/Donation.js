@@ -2,14 +2,96 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Donation() {
+
+   const router = useRouter();
+   
   const [proceedLoading, setProceedLoading] = useState(false);
 
   const [btnLoading, setBtnLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // const startPayment = async () => {
+  //   if (!amount || Number(amount) < 1) {
+  //     console.log("Please enter a valid amount");
+  //     return;
+  //   }
+
+  //   setProceedLoading(true);
+
+  //   try {
+  //     // CREATE ORDER
+  //     const orderRes = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/payments/create-order`,
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({ amount: Number(amount) }),
+  //       }
+  //     );
+
+  //     const orderData = await orderRes.json();
+  //     console.log("ORDER:", orderData);
+
+  //     if (!orderData.success) {
+  //       console.log("Order creation failed");
+  //       setProceedLoading(false);
+  //       return;
+  //     }
+
+  //     // RAZORPAY OPTIONS
+  //     const options = {
+  //       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+  //       amount: orderData.data.amount,
+  //       currency: orderData.data.currency,
+  //       order_id: orderData.data.id,
+  //       name: "News Bullet Kerala",
+  //       description: "Donation",
+  //       image: "/logo.jpg",
+
+  //       // VERIFY AFTER SUCCESS
+  //       handler: async function (response) {
+  //         const verifyRes = await fetch(
+  //           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/payments/verify`,
+  //           {
+  //             method: "POST",
+  //             headers: { "Content-Type": "application/json" },
+  //             body: JSON.stringify({
+  //               order_id: response.razorpay_order_id,
+  //               payment_id: response.razorpay_payment_id,
+  //               signature: response.razorpay_signature,
+  //             }),
+  //           }
+  //         );
+
+  //         const verifyData = await verifyRes.json();
+
+  //         if (verifyData.success) {
+  //           console.log("Payment Successful! ");
+  //         } else {
+  //           console.log("Payment Verification Failed ");
+  //         }
+
+  //         // NOW close popup
+  //         setShowModal(false);
+  //       },
+
+  //       theme: { color: "#E87331" },
+  //     };
+
+  //     const razorpay = new window.Razorpay(options);
+  //     razorpay.open();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+
+  //   setProceedLoading(false);
+  // };
+
 
   const startPayment = async () => {
     if (!amount || Number(amount) < 1) {
@@ -67,12 +149,15 @@ export default function Donation() {
           const verifyData = await verifyRes.json();
 
           if (verifyData.success) {
-            console.log("Payment Successful! ");
+            console.log("Payment Successful!");
+
+            // 🎉 REDIRECT USER TO /video PAGE
+            router.push("/video");
           } else {
-            console.log("Payment Verification Failed ");
+            console.log("Payment Verification Failed");
           }
 
-          // NOW close popup
+          // Close modal
           setShowModal(false);
         },
 
