@@ -356,34 +356,81 @@ export default function Videos() {
 const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/youtube`;
 
   // 🔥 Fetch videos from your backend paginated API
+  // const fetchVideos = async () => {
+  //   if (!hasMore || loading) return;
+
+  //   setLoading(true);
+
+  //   try {
+  //     const res = await fetch(`${API_URL}?page=${page}`, {
+  //       cache: "no-store",
+  //     });
+
+  //     const json = await res.json();
+
+  //     // APPEND videos
+  //     setVideos((prev) => [...prev, ...(json.data.videos || [])]);
+
+  //     // UPDATE hasMore
+  //     setHasMore(json.data.hasMore);
+
+  //     // NEXT PAGE
+  //     if (json.data.hasMore) {
+  //       setPage((prev) => prev + 1);
+  //     }
+  //   } catch (err) {
+  //     console.error("Error loading videos:", err);
+  //   }
+
+  //   setLoading(false);
+  // };
+
+
   const fetchVideos = async () => {
-    if (!hasMore || loading) return;
+  if (!hasMore || loading) return;
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const res = await fetch(`${API_URL}?page=${page}`, {
-        cache: "no-store",
-      });
+  try {
+    const res = await fetch(`${API_URL}?page=${page}`, {
+      cache: "no-store",
+    });
 
-      const json = await res.json();
-
-      // APPEND videos
-      setVideos((prev) => [...prev, ...(json.data.videos || [])]);
-
-      // UPDATE hasMore
-      setHasMore(json.data.hasMore);
-
-      // NEXT PAGE
-      if (json.data.hasMore) {
-        setPage((prev) => prev + 1);
-      }
-    } catch (err) {
-      console.error("Error loading videos:", err);
+    if (!res.ok) {
+      console.error("API ERROR:", res.status);
+      setLoading(false);
+      return;
     }
 
-    setLoading(false);
-  };
+    const json = await res.json();
+
+    // ✔ PROTECT AGAINST BROKEN API RESPONSE
+    if (!json || !json.data || !Array.isArray(json.data.videos)) {
+      console.warn("Invalid API response format");
+      setHasMore(false);
+      setLoading(false);
+      return;
+    }
+
+    // Append video list
+    setVideos((prev) => [...prev, ...json.data.videos]);
+
+    // Update next-page logic
+    setHasMore(json.data.hasMore === true);
+
+    if (json.data.hasMore) {
+      setPage((prev) => prev + 1);
+    }
+
+  } catch (err) {
+    console.error("Network error:", err);
+
+    // ❗ When API fails → stop infinite loop
+    setHasMore(false);
+  }
+
+  setLoading(false);
+};
 
   // Initial fetch
   useEffect(() => {
@@ -503,9 +550,15 @@ const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/youtube`;
             </div>
           )}
 
-          {!hasMore && (
+          {/* {!hasMore && (
             <p className="text-gray-500 text-center">No more videos available.</p>
-          )}
+          )} */}
+          {!hasMore && videos.length === 0 && (
+  <p className="text-center text-red-500 font-medium">
+    Failed to load videos. Please try again later.
+  </p>
+)}
+
         </div>
       </section>
     </div>
