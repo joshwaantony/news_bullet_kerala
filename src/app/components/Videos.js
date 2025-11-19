@@ -11,7 +11,7 @@ export default function Videos() {
 
   const loaderRef = useRef(null);
 
-  const API_KEY = "AIzaSyA-6REW6Tdgq3CgxzTyQ900stzYib4L_T4";
+  const API_KEY = "AIzaSyB0woehk2sLHF26ONdsn-wGzIRafzpAHQk";
   const CHANNEL_ID = "UCbXD5z_1OflMuiekSJfEO8Q";
 
   // 🔥 Fetch videos (append mode)
