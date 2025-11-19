@@ -386,7 +386,52 @@ const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/youtube`;
   // };
 
 
-  const fetchVideos = async () => {
+//   const fetchVideos = async () => {
+//   if (!hasMore || loading) return;
+
+//   setLoading(true);
+
+//   try {
+//     const res = await fetch(`${API_URL}?page=${page}`, {
+//       cache: "no-store",
+//     });
+
+//     if (!res.ok) {
+//       console.error("API ERROR:", res.status);
+//       setLoading(false);
+//       return;
+//     }
+
+//     const json = await res.json();
+
+//     // ✔ PROTECT AGAINST BROKEN API RESPONSE
+//     if (!json || !json.data || !Array.isArray(json.data.videos)) {
+//       console.warn("Invalid API response format");
+//       setHasMore(false);
+//       setLoading(false);
+//       return;
+//     }
+
+//     // Append video list
+//     setVideos((prev) => [...prev, ...json.data.videos]);
+
+//     // Update next-page logic
+//     setHasMore(json.data.hasMore === true);
+
+//     if (json.data.hasMore) {
+//       setPage((prev) => prev + 1);
+//     }
+
+//   } catch (err) {
+//     console.error("Network error:", err);
+
+//     // ❗ When API fails → stop infinite loop
+//     setHasMore(false);
+//   }
+
+//   setLoading(false);
+// };
+const fetchVideos = async () => {
   if (!hasMore || loading) return;
 
   setLoading(true);
@@ -396,36 +441,45 @@ const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/youtube`;
       cache: "no-store",
     });
 
+    // ⛔ STOP infinite retry if API returns 404 / 500 / 502 / any error
     if (!res.ok) {
       console.error("API ERROR:", res.status);
+
+      // HARD STOP — No more fetching
+      setHasMore(false);
+
       setLoading(false);
       return;
     }
 
     const json = await res.json();
 
-    // ✔ PROTECT AGAINST BROKEN API RESPONSE
+    // ❗ Check if response structure is broken
     if (!json || !json.data || !Array.isArray(json.data.videos)) {
       console.warn("Invalid API response format");
+
+      // STOP fetching further → prevent infinite calls
       setHasMore(false);
+
       setLoading(false);
       return;
     }
 
-    // Append video list
+    // APPEND new videos
     setVideos((prev) => [...prev, ...json.data.videos]);
 
-    // Update next-page logic
-    setHasMore(json.data.hasMore === true);
-
+    // Check if more pages exist
     if (json.data.hasMore) {
       setPage((prev) => prev + 1);
+    } else {
+      // No more pages → STOP infinite scroll
+      setHasMore(false);
     }
 
   } catch (err) {
     console.error("Network error:", err);
 
-    // ❗ When API fails → stop infinite loop
+    // ❗ On ANY network error → STOP further scroll triggers
     setHasMore(false);
   }
 
