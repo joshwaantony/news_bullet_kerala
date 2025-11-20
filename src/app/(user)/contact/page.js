@@ -1,3 +1,4 @@
+import Navbar from "@/app/components/Navbar";
 import {
   FaYoutube,
   FaEnvelope,
@@ -5,7 +6,6 @@ import {
   FaInstagram,
   FaWhatsapp
 } from "react-icons/fa";
-import Navbar from "../components/Navbar";
 
 export default function ContactPage() {
   return (

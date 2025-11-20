@@ -4,8 +4,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
 import Script from "next/script";
+import Navbar from "@/app/components/Navbar";
 
 export default function Page() {
   const [showModal, setShowModal] = useState(false);

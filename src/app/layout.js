@@ -47,6 +47,7 @@
 //   );
 // }
 
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import Script from "next/script";
 
@@ -65,6 +66,7 @@ export default function RootLayout({ children }) {
       </head>
 
       <body>
+           <Toaster position="top-right" reverseOrder={false} />
         {children}
       </body>
     </html>

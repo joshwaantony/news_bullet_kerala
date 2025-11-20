@@ -437,7 +437,7 @@ const fetchVideos = async () => {
   setLoading(true);
 
   try {
-    const res = await fetch(`${API_URL}?page=${page}`, {
+    const res = await fetch(`${API_URL}`, {
       cache: "no-store",
     });
 

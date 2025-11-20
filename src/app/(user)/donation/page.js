@@ -1,9 +1,9 @@
+import Donation from "@/app/components/Donation";
 import React from "react";
-import Videos from "../components/Videos";
 
 function page() {
   return <div>
-    <Videos/>
+    <Donation/>
   </div>;
 }
 
