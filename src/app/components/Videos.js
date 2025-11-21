@@ -344,6 +344,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar";
+import api from "@/api/axios";
 
 export default function Videos() {
   const [videos, setVideos] = useState([]);
@@ -437,54 +438,40 @@ const fetchVideos = async () => {
   setLoading(true);
 
   try {
-    const res = await fetch(`${API_URL}`, {
-      cache: "no-store",
-    });
+    const res = await api.get(`${API_URL}?page=${page}`);
 
-    // ⛔ STOP infinite retry if API returns 404 / 500 / 502 / any error
-    if (!res.ok) {
-      console.error("API ERROR:", res.status);
+    // ⛔ If API fails — Axios throws error before here, so no res.ok needed
+    console.log("API Response:", res);
 
-      // HARD STOP — No more fetching
-      setHasMore(false);
+    // Axios always returns data inside res.data
+    const json = res.data;
 
-      setLoading(false);
-      return;
-    }
-
-    const json = await res.json();
-
-    // ❗ Check if response structure is broken
-    if (!json || !json.data || !Array.isArray(json.data.videos)) {
+    // Validate structure
+    if (!json?.data?.videos || !Array.isArray(json.data.videos)) {
       console.warn("Invalid API response format");
-
-      // STOP fetching further → prevent infinite calls
       setHasMore(false);
-
       setLoading(false);
       return;
     }
 
-    // APPEND new videos
+    // Append new videos
     setVideos((prev) => [...prev, ...json.data.videos]);
 
-    // Check if more pages exist
-    if (json.data.hasMore) {
+    // Pagination logic
+    if (json.data.hasMore === true) {
       setPage((prev) => prev + 1);
     } else {
-      // No more pages → STOP infinite scroll
       setHasMore(false);
     }
 
   } catch (err) {
-    console.error("Network error:", err);
-
-    // ❗ On ANY network error → STOP further scroll triggers
-    setHasMore(false);
+    console.error("Network/API Error:", err);
+    setHasMore(false); // stop infinite scroll
   }
 
   setLoading(false);
 };
+
 
   // Initial fetch
   useEffect(() => {

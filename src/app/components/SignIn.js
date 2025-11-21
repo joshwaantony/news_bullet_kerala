@@ -295,13 +295,13 @@ console.log(res);
       // backend response success format:
       // { statusCode: 200, data: { user: { role }, accessToken }, message }
 
-      if (res?.data.user) {
+      if (res?.user) {
         toast.success("Login Successful!");
 
         // ROLE-BASED REDIRECT
-        if (res.data.user.role === "admin") {
+        if (res.user.role === "admin") {
           router.push("/dashboard");
-        } else if (res.data.user.role === "user") {
+        } else if (res.user.role === "user") {
           router.push("/donation");
         } else {
           router.push("/");
