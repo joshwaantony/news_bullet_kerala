@@ -312,7 +312,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthStore } from "@/store/authStore";
 import { useRouter } from "next/navigation";
@@ -327,7 +327,18 @@ export default function SignUp() {
     confirmPassword: "",
   });
 
-  const { register, loading, error } = useAuthStore();
+  const { register, loading, error, isLoggedIn, isAdmin, isUser } = useAuthStore();
+  
+    // 🔥 Auto redirect if already logged in
+    useEffect(() => {
+      if (isLoggedIn && isAdmin) {
+        router.replace("/dashboard");
+      }
+      if (isLoggedIn && isUser) {
+        router.replace("/donation");
+      }
+    }, [isLoggedIn, isAdmin, isUser]);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
