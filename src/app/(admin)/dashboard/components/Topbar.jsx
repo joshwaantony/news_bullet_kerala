@@ -127,7 +127,7 @@ export default function Topbar() {
                        rounded-xl shadow hover:shadow-md transition"
           >
             <img
-              src="/profile.jpg"
+              src="/logo.jpg"
               className="w-10 h-10 rounded-full border shadow-sm"
             />
 
@@ -187,7 +187,7 @@ export default function Topbar() {
             <div className="flex justify-center gap-4 mt-6">
               <button
                 onClick={() => setShowConfirm(false)}
-                className="px-4 py-2 rounded-lg border text-sm hover:bg-gray-100"
+                className="px-4 py-2 rounded-lg border text-gray-600 text-sm hover:bg-gray-100"
               >
                 Cancel
               </button>

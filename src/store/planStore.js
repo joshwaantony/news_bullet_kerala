@@ -25,17 +25,23 @@ export const usePlanStore = create((set) => ({
   },
 
   // GET ALL PLANS
-  getPlans: async () => {
-    set({ loading: true });
-    try {
-      const res = await PlanService.getPlans();
-      set({ plans: res.data.data || [] });
-    } catch (err) {
-      set({ error: err.message });
-    } finally {
-      set({ loading: false });
-    }
-  },
+getPlans: async () => {
+  set({ loading: true });
+
+  try {
+    const res = await PlanService.getPlans();
+    console.log(res);
+
+    // ✔ Correct: backend sends res.data.data as an array
+    set({ plans: res.data.data || [] });
+
+  } catch (err) {
+    set({ error: err.response?.data?.message || err.message });
+  } finally {
+    set({ loading: false });
+  }
+},
+
 
   // GET PLAN BY ID
   getPlanById: async (id) => {
