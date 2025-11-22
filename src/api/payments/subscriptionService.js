@@ -2,23 +2,23 @@ import api from "@/api/axios";
 
 export const SubscriptionService = {
   createSubscription: (payload) =>
-    api.post("/payments/subscriptions/create", payload),
+    api.post("/payments/create", payload),
 
   verifySubscription: (payload) =>
-    api.post("/payments/subscriptions/verify", payload),
+    api.post("/payment/verify", payload),
 
   getUserSubscriptions: () =>
-    api.get("/payments/subscriptions/user/all"),
+    api.get("/payments/user/all"),
 
   getSingleSubscription: (id) =>
-    api.get(`/payments/subscriptions/${id}`),
+    api.get(`/payments/${id}`),
 
   cancelSubscription: (id, body) =>
-    api.post(`/payments/subscriptions/${id}/cancel`, body),
+    api.post(`/payments/${id}/cancel`, body),
 
   pauseSubscription: (id, body) =>
-    api.post(`/payments/subscriptions/${id}/pause`, body),
+    api.post(`/payments/${id}/pause`, body),
 
   resumeSubscription: (id, body) =>
-    api.post(`/payments/subscriptions/${id}/resume`, body),
+    api.post(`/payments/${id}/resume`, body),
 };

@@ -137,11 +137,11 @@ export const useAuthStore = create(
       error: null,
 
       // LOGIN
-      login: async (phone, password) => {
+      login: async (email, password) => {
         set({ loading: true, error: null });
 
         try {
-          const res = await AuthService.login(phone, password);
+          const res = await AuthService.login(email, password);
 
           const user = res?.data?.user;
           const token = res?.data?.accessToken;
@@ -169,11 +169,11 @@ export const useAuthStore = create(
       },
 
       // REGISTER
-      register: async (name, phone, password) => {
+      register: async (name, email, password) => {
         set({ loading: true, error: null });
 
         try {
-          const res = await AuthService.register(name, phone, password);
+          const res = await AuthService.register(name, email, password);
 
           const user = res?.data?.user;
           const token = res?.data?.accessToken;
