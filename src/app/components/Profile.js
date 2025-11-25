@@ -1,11 +1,12 @@
 import React from "react";
+import Navbar from "./Navbar";
 
 export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-[#FFFDFB]">
      
     
-
+<Navbar/>
       <main className="flex flex-col items-center py-12 px-4">
         <section className="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-8 pt-7"
           style={{ boxShadow: "0 4px 44px #E8D8C5" }}>
