@@ -592,6 +592,186 @@
 
 
 
+// "use client";
+
+// import { useState, useEffect } from "react";
+// import { usePlanStore } from "@/store/planStore";
+// import { MdDelete } from "react-icons/md";
+// import toast from "react-hot-toast";
+// import CreatePlanModal from "../dashboard/components/CreatePlanModal";
+
+// export default function CreatePlanPage() {
+//   const { createPlan, getPlans, deletePlan, plans, loading } = usePlanStore();
+
+//   const [showModal, setShowModal] = useState(false);
+//   const [deleteConfirm, setDeleteConfirm] = useState(null);
+//   const [deleteLoading, setDeleteLoading] = useState(false);
+
+//   const [form, setForm] = useState({
+//     name: "",
+//     amount: "",
+//     period: "",
+//     interval: "",
+//     description: "",
+//   });
+
+//   useEffect(() => {
+//     getPlans();
+//   }, []);
+
+//   const handleChange = (e) => {
+//     setForm({ ...form, [e.target.name]: e.target.value });
+//   };
+
+//   const submitPlan = async (e) => {
+//     e.preventDefault();
+//     try {
+//       await createPlan(form);
+//       toast.success("Plan created");
+
+//       setForm({
+//         name: "",
+//         amount: "",
+//         period: "",
+//         interval: "",
+//         description: "",
+//       });
+
+//       setShowModal(false);
+//       getPlans();
+//     } catch (err) {}
+//   };
+
+//   const handleDelete = async () => {
+//     setDeleteLoading(true);
+//     try {
+//       await deletePlan(deleteConfirm);
+//       toast.success("Plan Deleted");
+//       setDeleteConfirm(null);
+//     } catch (err) {
+//       toast.error("Failed to delete");
+//     } finally {
+//       setDeleteLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div className="p-4">
+
+//       {/* TOP BAR */}
+//       <div className="flex justify-between items-center mb-6">
+//         <h1 className="sm:text-2xl text-black font-bold">Subscription Plans</h1>
+
+//         <button
+//           onClick={() => setShowModal(true)}
+//           className="px-5 py-2 rounded-lg text-white bg-gradient-to-r from-orange-500 to-orange-800 shadow-md hover:opacity-90"
+//         >
+//           + Create Plan
+//         </button>
+//       </div>
+
+//       {/* PLANS GRID */}
+//       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
+//         {plans.length === 0 && (
+//           <p className="text-gray-600 text-sm">No plans created yet.</p>
+//         )}
+
+//         {plans?.map((plan) => {
+//           const meta = plan.meta;
+
+//           return (
+//             <div
+//               key={meta._id}
+//               className="relative bg-[#FFF8F2] rounded-3xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-all duration-300"
+//             >
+//               {/* DELETE ICON */}
+//               <button
+//                 onClick={() => setDeleteConfirm(meta.razorpayPlanId)}
+//                 className="absolute top-5 right-5 p-2 rounded-full hover:bg-red-200 transition"
+//               >
+//                 <MdDelete className="text-red-500 text-xl" />
+//               </button>
+
+//               {/* NAME */}
+//               <h3 className="text-2xl font-bold text-[#1A1A1A]">{meta.name}</h3>
+
+//               {/* PRICE */}
+//               <div className="mt-4">
+//                 <span className="text-4xl text-[#F54A00] font-extrabold">₹{meta.amount}</span>
+//                 <span className="text-lg text-gray-600">/{meta.period}</span>
+
+//                 <p className="text-gray-500 text-sm mt-1">
+//                   Billed every {meta.interval} {meta.period}
+//                 </p>
+//               </div>
+
+//               {/* DESCRIPTION */}
+//               <p className="text-[#333] my-6 leading-relaxed">
+//                 {meta.description || "No description available"}
+//               </p>
+
+//               {/* STATUS */}
+//               <span
+//                 className={`px-4 py-1.5 text-sm font-semibold rounded-full ${
+//                   meta.isActive
+//                     ? "bg-green-100 text-green-700"
+//                     : "bg-orange-100 text-orange-600"
+//                 }`}
+//               >
+//                 {meta.isActive ? "Active" : "Disabled"}
+//               </span>
+//             </div>
+//           );
+//         })}
+//       </div>
+
+//       {/* DELETE CONFIRM MODAL */}
+//       {deleteConfirm && (
+//         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+//           <div className="bg-white p-6 rounded-xl w-[300px] shadow-xl">
+//             <h3 className="text-lg font-bold text-black text-center">Delete Plan?</h3>
+//             <p className="text-center text-gray-600 mt-2">This action cannot be undone.</p>
+
+//             <div className="flex justify-between mt-6">
+//               <button
+//                 onClick={() => (!deleteLoading ? setDeleteConfirm(null) : null)}
+//                 className="px-4 py-2 border text-gray-500 rounded-lg disabled:opacity-50"
+//                 disabled={deleteLoading}
+//               >
+//                 Cancel
+//               </button>
+
+//               <button
+//                 onClick={handleDelete}
+//                 disabled={deleteLoading}
+//                 className="px-4 py-2 bg-red-600 text-white rounded-lg disabled:opacity-50"
+//               >
+//                 {deleteLoading ? "Deleting..." : "Delete"}
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* CREATE PLAN MODAL (SEPARATE COMPONENT) */}
+//       <CreatePlanModal
+//         open={showModal}
+//         onClose={() => setShowModal(false)}
+//         onSubmit={submitPlan}
+//         form={form}
+//         onChange={handleChange}
+//         loading={loading}
+//       />
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -656,24 +836,25 @@ export default function CreatePlanPage() {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-3 sm:p-4">
 
-      {/* TOP BAR */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl text-black font-bold">Subscription Plans</h1>
+      {/* ===== TOP BAR ===== */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-black">Subscription Plans</h1>
 
         <button
           onClick={() => setShowModal(true)}
-          className="px-5 py-2 rounded-lg text-white bg-gradient-to-r from-orange-500 to-orange-800 shadow-md hover:opacity-90"
+          className="px-4 py-2 w-full sm:w-auto text-center rounded-lg text-white 
+          bg-gradient-to-r from-orange-500 to-orange-800 shadow-md hover:opacity-90 transition"
         >
           + Create Plan
         </button>
       </div>
 
-      {/* PLANS GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+      {/* ===== PLANS GRID ===== */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-4">
         {plans.length === 0 && (
-          <p className="text-gray-600 text-sm">No plans created yet.</p>
+          <p className="text-gray-500 text-sm">No plans created yet.</p>
         )}
 
         {plans?.map((plan) => {
@@ -682,37 +863,40 @@ export default function CreatePlanPage() {
           return (
             <div
               key={meta._id}
-              className="relative bg-[#FFF8F2] rounded-3xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-all duration-300"
+              className="relative bg-[#FFF8F2] rounded-2xl p-6 sm:p-8 shadow-lg 
+              border border-orange-100 hover:shadow-xl transition duration-300"
             >
               {/* DELETE ICON */}
               <button
                 onClick={() => setDeleteConfirm(meta.razorpayPlanId)}
-                className="absolute top-5 right-5 p-2 rounded-full hover:bg-red-200 transition"
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-red-200 transition"
               >
-                <MdDelete className="text-red-500 text-xl" />
+                <MdDelete className="text-red-500 text-lg sm:text-xl" />
               </button>
 
               {/* NAME */}
-              <h3 className="text-2xl font-bold text-[#1A1A1A]">{meta.name}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#1A1A1A]">{meta.name}</h3>
 
               {/* PRICE */}
-              <div className="mt-4">
-                <span className="text-4xl text-[#F54A00] font-extrabold">₹{meta.amount}</span>
-                <span className="text-lg text-gray-600">/{meta.period}</span>
+              <div className="mt-3 sm:mt-4">
+                <span className="text-3xl sm:text-4xl text-[#F54A00] font-extrabold">
+                  ₹{meta.amount}
+                </span>
+                <span className="text-base sm:text-lg text-gray-600">/{meta.period}</span>
 
-                <p className="text-gray-500 text-sm mt-1">
+                <p className="text-gray-500 text-xs sm:text-sm mt-1">
                   Billed every {meta.interval} {meta.period}
                 </p>
               </div>
 
               {/* DESCRIPTION */}
-              <p className="text-[#333] my-6 leading-relaxed">
+              <p className="text-[#333] mt-4 sm:mt-6 text-sm leading-relaxed">
                 {meta.description || "No description available"}
               </p>
 
               {/* STATUS */}
               <span
-                className={`px-4 py-1.5 text-sm font-semibold rounded-full ${
+                className={`mt-4 inline-block px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-full ${
                   meta.isActive
                     ? "bg-green-100 text-green-700"
                     : "bg-orange-100 text-orange-600"
@@ -725,18 +909,20 @@ export default function CreatePlanPage() {
         })}
       </div>
 
-      {/* DELETE CONFIRM MODAL */}
+      {/* ===== DELETE CONFIRMATION MODAL ===== */}
       {deleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl w-[300px] shadow-xl">
-            <h3 className="text-lg font-bold text-black text-center">Delete Plan?</h3>
-            <p className="text-center text-gray-600 mt-2">This action cannot be undone.</p>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white p-5 sm:p-6 rounded-xl w-full max-w-xs shadow-xl">
+            <h3 className="text-lg font-bold text-center text-black">Delete Plan?</h3>
+            <p className="text-center text-gray-600 text-sm mt-2">
+              This action cannot be undone.
+            </p>
 
             <div className="flex justify-between mt-6">
               <button
                 onClick={() => (!deleteLoading ? setDeleteConfirm(null) : null)}
-                className="px-4 py-2 border text-gray-500 rounded-lg disabled:opacity-50"
                 disabled={deleteLoading}
+                className="px-4 py-2 border text-gray-600 rounded-lg disabled:opacity-50"
               >
                 Cancel
               </button>
@@ -753,7 +939,7 @@ export default function CreatePlanPage() {
         </div>
       )}
 
-      {/* CREATE PLAN MODAL (SEPARATE COMPONENT) */}
+      {/* ===== CREATE PLAN MODAL ===== */}
       <CreatePlanModal
         open={showModal}
         onClose={() => setShowModal(false)}
