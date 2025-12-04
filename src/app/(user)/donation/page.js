@@ -1,4 +1,4 @@
-import Donation from "@/app/components/Donation";
+import Donation from "@/components/Donation";
 import React from "react";
 
 function page() {

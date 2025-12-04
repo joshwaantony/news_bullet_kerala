@@ -5,7 +5,7 @@
 
 import React, { useState } from "react";
 import Script from "next/script";
-import Navbar from "@/app/components/Navbar";
+import Navbar from "@/components/Navbar";
 
 export default function Page() {
   const [showModal, setShowModal] = useState(false);

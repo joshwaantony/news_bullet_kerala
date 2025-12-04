@@ -1,4 +1,4 @@
-import Videos from "@/app/components/Videos";
+import Videos from "@/components/Videos";
 import React from "react";
 
 function page() {
