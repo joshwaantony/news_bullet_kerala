@@ -2,6 +2,7 @@ import React from "react";
 import { CiCalendar } from "react-icons/ci";
 import { Calendar, Clock, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { timeAgo } from "@/utils/timeAgo";
 
 const NewsCard = ({ latest = false, news }) => {
   if (!news) return null;
@@ -19,7 +20,7 @@ const NewsCard = ({ latest = false, news }) => {
         </span>
         <span className="flex  text-[#8a6f5c] items-center justify-center">
           <Clock className="text-[15px]" />
-          <h4>1 min</h4>
+          <h4>{timeAgo(news.createdAt)}</h4>
         </span>
       </div>
 
@@ -56,7 +57,7 @@ const NewsCard = ({ latest = false, news }) => {
 
         <span className="flex items-center gap-1">
           <Clock className="text-[14px]" />
-          <h4>1 min</h4>
+          <h4>{timeAgo(news.createdAt)}</h4>
         </span>
       </div>
 
