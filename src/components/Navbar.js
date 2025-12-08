@@ -810,18 +810,20 @@ export default function Navbar() {
 
           {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center gap-6">
-            <Link
-              href="/news"
-              className={pathname === "/news" ? activeClass : normalClass}
-            >
-              News
-            </Link>
+         
 
             <Link
               href="/video"
               className={pathname === "/video" ? activeClass : normalClass}
             >
               Videos
+            </Link>
+
+               <Link
+              href="/news"
+              className={pathname === "/news" ? activeClass : normalClass}
+            >
+              News
             </Link>
 
             <Link

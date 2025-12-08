@@ -6,11 +6,23 @@ import Navbar from "@/components/Navbar";
 import { newsService } from "@/api/news/newsService";
 import { timeAgo } from "@/utils/timeAgo";
 import Link from "next/link";
+import Loader from "@/components/Loader";
 
 export default function SingleNewsPage({ params }) {
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const { slug } = use(params); // ✅ FIX: unwrap params Promise
 
   const [news, setNews] = useState(null);
+
+   // Copy link success state (optional: for animated text)
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(shareUrl);
+    setCopied(true);
+
+    setTimeout(() => setCopied(false), 1500);
+  };
 
 
 
@@ -29,7 +41,9 @@ export default function SingleNewsPage({ params }) {
   }, [slug]); 
 
 
-  if (!news) return <p className="p-10">Loading...</p>;
+  if (!news) return <p className="p-10 w-full min-h-screen flex justify-center items-center">
+    <Loader/>
+  </p>;
 
   return (
     <div className="max-w-4xl mx-auto px-5 py-6">
@@ -55,58 +69,65 @@ export default function SingleNewsPage({ params }) {
         </span>
       </div>
 
-      <div className="flex items-center gap-3 mb-10 mt-5 pb-8 border-b border-border/50">
-  <span className="text-[#463a31]">ഷെയർ ചെയ്യുക:</span>
+   <div className="flex items-center gap-3 mb-10 mt-5 pb-8 border-b border-border/50">
+      <span className="text-[#463a31]">ഷെയർ ചെയ്യുക:</span>
 
-  {/* WhatsApp */}
-  <button
-    className="
-      inline-flex items-center gap-2
-      rounded-full border border-[#25d366]/30
-      bg-white px-4 py-1.5 text-sm font-medium text-[#075e54]
-      shadow-sm
-      hover:bg-[#e3f8ec]
-      hover:border-[#25d366]
-      transition-colors duration-200
-    "
-  >
-    <Share2 className="w-4 h-4" />
-    <span>WhatsApp</span>
-  </button>
+      {/* WhatsApp */}
+      <a
+        href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="
+          inline-flex items-center gap-2
+          rounded-full border border-[#25d366]/30
+          bg-white px-4 py-1.5 text-sm font-medium text-[#075e54]
+          shadow-sm
+          hover:bg-[#e3f8ec]
+          hover:border-[#25d366]
+          transition-colors duration-200
+        "
+      >
+        <Share2 className="w-4 h-4" />
+        <span>WhatsApp</span>
+      </a>
 
-  {/* Facebook */}
-  <button
-    className="
-      inline-flex items-center gap-2
-      rounded-full border border-[#1877f2]/30
-      bg-white px-4 py-1.5 text-sm font-medium text-[#1877f2]
-      shadow-sm
-      hover:bg-[#e7f0ff]
-      hover:border-[#1877f2]
-      transition-colors duration-200
-    "
-  >
-    <Share2 className="w-4 h-4" />
-    <span>Facebook</span>
-  </button>
+      {/* Facebook */}
+      <a
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          shareUrl
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="
+          inline-flex items-center gap-2
+          rounded-full border border-[#1877f2]/30
+          bg-white px-4 py-1.5 text-sm font-medium text-[#1877f2]
+          shadow-sm
+          hover:bg-[#e7f0ff]
+          hover:border-[#1877f2]
+          transition-colors duration-200
+        "
+      >
+        <Share2 className="w-4 h-4" />
+        <span>Facebook</span>
+      </a>
 
-  {/* Copy link */}
-  <button
-    className="
-      inline-flex items-center gap-2
-      rounded-full border border-gray-300
-      bg-white px-4 py-1.5 text-sm font-medium text-gray-700
-      shadow-sm
-      hover:bg-gray-100
-      transition-colors duration-200
-    "
-    // onClick={() => navigator.clipboard.writeText(window.location.href)}
-    type="button"
-  >
-    <Copy className="w-4 h-4" />
-    <span>Copy link</span>
-  </button>
-</div>
+      {/* Copy Link */}
+      <button
+        onClick={handleCopy}
+        className="
+          inline-flex items-center gap-2
+          rounded-full border border-gray-300
+          bg-white px-4 py-1.5 text-sm font-medium text-gray-700
+          shadow-sm
+          hover:bg-gray-100
+          transition-colors duration-200
+        "
+      >
+        <Copy className="w-4 h-4" />
+        <span>{copied ? "Copied!" : "Copy link"}</span>
+      </button>
+    </div>
 
 
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-8 pt-4">

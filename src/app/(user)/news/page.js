@@ -2,6 +2,7 @@
 "use client";
 
 import { newsService } from "@/api/news/newsService";
+import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
 import NewsCard from "@/components/news/NewsCard";
 import { Newspaper, TrendingUp } from "lucide-react";
@@ -18,7 +19,9 @@ const Page = () => {
     });
   }, []);
 
-  if (loading) return <p className="p-10">Loading...</p>;
+  if (loading) return <p className="w-full min-h-screen flex justify-center items-center">
+    <Loader/>
+  </p>;
 
   return (
     <div className="w-full min-h-screen bg-white px-16">
