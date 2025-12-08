@@ -529,19 +529,241 @@
 
 
 
+// "use client";
+
+// import { useEffect, useState } from "react";
+// import Link from "next/link";
+// import { usePathname, useRouter } from "next/navigation";
+// import { useAuthStore } from "@/store/authStore";
+
+// import { FiUser, FiChevronDown } from "react-icons/fi";
+
+// export default function Navbar() {
+//   const pathname = usePathname();
+//   const router = useRouter();
+//   const { isLoggedIn, logout, user } = useAuthStore();
+
+//   const [visible, setVisible] = useState(true);
+//   const [lastScroll, setLastScroll] = useState(0);
+//   const [menuOpen, setMenuOpen] = useState(false);
+//   const [showConfirm, setShowConfirm] = useState(false);
+//   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+//   // 🔥 Auto-hide navbar on scroll
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       const current = window.pageYOffset;
+
+//       if (current > lastScroll && current > 50) setVisible(false);
+//       else setVisible(true);
+
+//       setLastScroll(current);
+//     };
+
+//     window.addEventListener("scroll", handleScroll);
+//     return () => window.removeEventListener("scroll", handleScroll);
+//   }, [lastScroll]);
+
+//   const activeClass = "text-orange-600 font-semibold";
+//   const normalClass = "text-black font-medium hover:text-orange-600 transition";
+
+//   const handleLogout = () => {
+//     logout();
+//     localStorage.clear();
+//     router.replace("/signin");
+//   };
+
+//   return (
+//     <>
+//       {/* NAVBAR */}
+//       <nav
+//         className={`fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all duration-300 ${
+//           visible ? "translate-y-0" : "-translate-y-full"
+//         }`}
+//       >
+//         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+
+//           {/* LOGO */}
+//           <div className="flex items-center gap-3">
+//             <img src="/logo.jpg" alt="Logo" className="size-12 rounded-full" />
+//             <span className="font-semibold text-xl text-black">
+//               News Bullet Kerala
+//             </span>
+//           </div>
+
+//           {/* DESKTOP MENU */}
+//           <div className="hidden md:flex items-center gap-6">
+
+//             <Link href="/video" className={pathname === "/video" ? activeClass : normalClass}>
+//               Videos
+//             </Link>
+
+//             <Link href="/contact" className={pathname === "/contact" ? activeClass : normalClass}>
+//               Contact
+//             </Link>
+
+//             <Link href="/support">
+//               <button
+//                 className={`px-5 py-2 rounded-lg shadow font-semibold transition ${
+//                   pathname === "/support"
+//                     ? "text-white bg-gradient-to-r from-orange-500 to-orange-700"
+//                     : "text-white bg-gradient-to-r from-orange-400 to-orange-700"
+//                 }`}
+//               >
+//                 Support Us
+//               </button>
+//             </Link>
+
+//             {/* PROFILE DROPDOWN / SIGN IN */}
+//             {!isLoggedIn ? (
+//               <Link href="/signin" className={normalClass}>Sign In</Link>
+//             ) : (
+//               <div className="relative">
+//                 <button
+//                   onClick={() => setDropdownOpen(!dropdownOpen)}
+//                   className="flex items-center gap-2"
+//                 >
+//                   {/* ROUND PROFILE ICON */}
+//                   <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shadow">
+//                     <FiUser className="text-xl text-gray-700" />
+//                   </div>
+//                   <FiChevronDown className="text-lg text-gray-700" />
+//                 </button>
+
+//                 {/* DROPDOWN MENU */}
+//                 {dropdownOpen && (
+//                   <div className="absolute right-0 mt-3 bg-white shadow-lg border rounded-lg w-40 py-2 z-50">
+//                     <Link
+//                       href="/profile"
+//                       className="block text-black px-4 py-2 hover:bg-gray-100 text-sm"
+//                       onClick={() => setDropdownOpen(false)}
+//                     >
+//                       Profile
+//                     </Link>
+
+//                     <button
+//                       onClick={() => {
+//                         setDropdownOpen(false);
+//                         setShowConfirm(true);
+//                       }}
+//                       className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 text-sm"
+//                     >
+//                       Logout
+//                     </button>
+//                   </div>
+//                 )}
+//               </div>
+//             )}
+//           </div>
+
+//           {/* MOBILE MENU BUTTON */}
+//           <button
+//             className="md:hidden text-3xl text-black"
+//             onClick={() => setMenuOpen(!menuOpen)}
+//           >
+//             ☰
+//           </button>
+//         </div>
+
+//         {/* MOBILE MENU */}
+//         {menuOpen && (
+//           <div className="md:hidden bg-white border-t shadow-lg animate-slideDown">
+//             <div className="flex flex-col px-6 py-4 gap-4">
+
+//               <Link href="/video" className={pathname === "/video" ? activeClass : normalClass} onClick={() => setMenuOpen(false)}>
+//                 Videos
+//               </Link>
+
+//               <Link href="/contact" className={pathname === "/contact" ? activeClass : normalClass} onClick={() => setMenuOpen(false)}>
+//                 Contact
+//               </Link>
+
+//               <Link href="/support" className={pathname === "/support" ? activeClass : normalClass} onClick={() => setMenuOpen(false)}>
+//                 Support Us
+//               </Link>
+
+//               {/* MOBILE PROFILE */}
+//               {!isLoggedIn ? (
+//                 <Link href="/signin" className={normalClass} onClick={() => setMenuOpen(false)}>
+//                   Sign In
+//                 </Link>
+//               ) : (
+//                 <>
+//                   <div className="flex items-center gap-3">
+//                     {/* <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shadow">
+//                       <FiUser className="text-xl text-gray-700" />
+//                     </div> */}
+//                     <Link href="/profile" className={normalClass} onClick={() => setMenuOpen(false)}>
+//                       Profile
+//                     </Link>
+//                   </div>
+
+//                   <button
+//                     onClick={() => {
+//                       setMenuOpen(false);
+//                       setShowConfirm(true);
+//                     }}
+//                     className="text-red-600 font-medium text-left"
+//                   >
+//                     Logout
+//                   </button>
+//                 </>
+//               )}
+//             </div>
+//           </div>
+//         )}
+//       </nav>
+
+//       {/* Prevent layout shift */}
+//       <div className="h-20"></div>
+
+//       {/* CONFIRM LOGOUT POPUP */}
+//       {showConfirm && (
+//         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+//           <div className="bg-white rounded-xl p-6 w-[300px] shadow-lg">
+//             <h3 className="text-lg text-black font-semibold text-center">Confirm Logout</h3>
+//             <p className="text-gray-600 text-sm text-center mt-2">
+//               Are you sure you want to logout?
+//             </p>
+
+//             <div className="flex justify-center gap-4 mt-6">
+//               <button
+//                 onClick={() => setShowConfirm(false)}
+//                 className="px-4 py-2 border text-gray-500 rounded-md hover:bg-gray-100 transition"
+//               >
+//                 Cancel
+//               </button>
+
+//               <button
+//                 onClick={handleLogout}
+//                 className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+//               >
+//                 Logout
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
+
+
+
+
+
 "use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
-
 import { FiUser, FiChevronDown } from "react-icons/fi";
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { isLoggedIn, logout, user } = useAuthStore();
+  const { isLoggedIn, logout } = useAuthStore();
 
   const [visible, setVisible] = useState(true);
   const [lastScroll, setLastScroll] = useState(0);
@@ -549,17 +771,14 @@ export default function Navbar() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // 🔥 Auto-hide navbar on scroll
+  // 🔥 Hide navbar on scroll
   useEffect(() => {
     const handleScroll = () => {
       const current = window.pageYOffset;
-
       if (current > lastScroll && current > 50) setVisible(false);
       else setVisible(true);
-
       setLastScroll(current);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScroll]);
@@ -575,14 +794,12 @@ export default function Navbar() {
 
   return (
     <>
-      {/* NAVBAR */}
       <nav
         className={`fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all duration-300 ${
           visible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-
           {/* LOGO */}
           <div className="flex items-center gap-3">
             <img src="/logo.jpg" alt="Logo" className="size-12 rounded-full" />
@@ -593,12 +810,24 @@ export default function Navbar() {
 
           {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center gap-6">
+            <Link
+              href="/news"
+              className={pathname === "/news" ? activeClass : normalClass}
+            >
+              News
+            </Link>
 
-            <Link href="/video" className={pathname === "/video" ? activeClass : normalClass}>
+            <Link
+              href="/video"
+              className={pathname === "/video" ? activeClass : normalClass}
+            >
               Videos
             </Link>
 
-            <Link href="/contact" className={pathname === "/contact" ? activeClass : normalClass}>
+            <Link
+              href="/contact"
+              className={pathname === "/contact" ? activeClass : normalClass}
+            >
               Contact
             </Link>
 
@@ -616,21 +845,21 @@ export default function Navbar() {
 
             {/* PROFILE DROPDOWN / SIGN IN */}
             {!isLoggedIn ? (
-              <Link href="/signin" className={normalClass}>Sign In</Link>
+              <Link href="/signin" className={normalClass}>
+                Sign In
+              </Link>
             ) : (
               <div className="relative">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                   className="flex items-center gap-2"
                 >
-                  {/* ROUND PROFILE ICON */}
                   <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shadow">
                     <FiUser className="text-xl text-gray-700" />
                   </div>
                   <FiChevronDown className="text-lg text-gray-700" />
                 </button>
 
-                {/* DROPDOWN MENU */}
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-3 bg-white shadow-lg border rounded-lg w-40 py-2 z-50">
                     <Link
@@ -640,7 +869,6 @@ export default function Navbar() {
                     >
                       Profile
                     </Link>
-
                     <button
                       onClick={() => {
                         setDropdownOpen(false);
@@ -669,34 +897,55 @@ export default function Navbar() {
         {menuOpen && (
           <div className="md:hidden bg-white border-t shadow-lg animate-slideDown">
             <div className="flex flex-col px-6 py-4 gap-4">
+              <Link
+                href="/news"
+                className={pathname === "/news" ? activeClass : normalClass}
+                onClick={() => setMenuOpen(false)}
+              >
+                News
+              </Link>
 
-              <Link href="/video" className={pathname === "/video" ? activeClass : normalClass} onClick={() => setMenuOpen(false)}>
+              <Link
+                href="/video"
+                className={pathname === "/video" ? activeClass : normalClass}
+                onClick={() => setMenuOpen(false)}
+              >
                 Videos
               </Link>
 
-              <Link href="/contact" className={pathname === "/contact" ? activeClass : normalClass} onClick={() => setMenuOpen(false)}>
+              <Link
+                href="/contact"
+                className={pathname === "/contact" ? activeClass : normalClass}
+                onClick={() => setMenuOpen(false)}
+              >
                 Contact
               </Link>
 
-              <Link href="/support" className={pathname === "/support" ? activeClass : normalClass} onClick={() => setMenuOpen(false)}>
+              <Link
+                href="/support"
+                className={pathname === "/support" ? activeClass : normalClass}
+                onClick={() => setMenuOpen(false)}
+              >
                 Support Us
               </Link>
 
-              {/* MOBILE PROFILE */}
               {!isLoggedIn ? (
-                <Link href="/signin" className={normalClass} onClick={() => setMenuOpen(false)}>
+                <Link
+                  href="/signin"
+                  className={normalClass}
+                  onClick={() => setMenuOpen(false)}
+                >
                   Sign In
                 </Link>
               ) : (
                 <>
-                  <div className="flex items-center gap-3">
-                    {/* <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shadow">
-                      <FiUser className="text-xl text-gray-700" />
-                    </div> */}
-                    <Link href="/profile" className={normalClass} onClick={() => setMenuOpen(false)}>
-                      Profile
-                    </Link>
-                  </div>
+                  <Link
+                    href="/profile"
+                    className={normalClass}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Profile
+                  </Link>
 
                   <button
                     onClick={() => {
@@ -714,14 +963,16 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* Prevent layout shift */}
+      {/* SPACER */}
       <div className="h-20"></div>
 
       {/* CONFIRM LOGOUT POPUP */}
       {showConfirm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-[300px] shadow-lg">
-            <h3 className="text-lg text-black font-semibold text-center">Confirm Logout</h3>
+            <h3 className="text-lg text-black font-semibold text-center">
+              Confirm Logout
+            </h3>
             <p className="text-gray-600 text-sm text-center mt-2">
               Are you sure you want to logout?
             </p>

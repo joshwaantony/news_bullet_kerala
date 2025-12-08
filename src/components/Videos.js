@@ -354,7 +354,7 @@ export default function Videos() {
 
   const loaderRef = useRef(null);
 
-const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/youtube`;
+const API_URL = `https://72t09sg9-4000.inc1.devtunnels.ms/api/youtube`;
 
   // 🔥 Fetch videos from your backend paginated API
   // const fetchVideos = async () => {

@@ -17,7 +17,7 @@ import axios from "axios";
 import { useAuthStore } from "@/store/authStore";
 
 const api = axios.create({
-  baseURL: "http://localhost:4000/api/v1",
+  baseURL: "https://72t09sg9-4000.inc1.devtunnels.ms/api/v1/",
   headers: { "Content-Type": "application/json" },
   withCredentials: true, // important for refresh token cookie
 });
