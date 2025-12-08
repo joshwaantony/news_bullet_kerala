@@ -55,6 +55,60 @@ export default function SingleNewsPage({ params }) {
         </span>
       </div>
 
+      <div className="flex items-center gap-3 mb-10 mt-5 pb-8 border-b border-border/50">
+  <span className="text-[#463a31]">ഷെയർ ചെയ്യുക:</span>
+
+  {/* WhatsApp */}
+  <button
+    className="
+      inline-flex items-center gap-2
+      rounded-full border border-[#25d366]/30
+      bg-white px-4 py-1.5 text-sm font-medium text-[#075e54]
+      shadow-sm
+      hover:bg-[#e3f8ec]
+      hover:border-[#25d366]
+      transition-colors duration-200
+    "
+  >
+    <Share2 className="w-4 h-4" />
+    <span>WhatsApp</span>
+  </button>
+
+  {/* Facebook */}
+  <button
+    className="
+      inline-flex items-center gap-2
+      rounded-full border border-[#1877f2]/30
+      bg-white px-4 py-1.5 text-sm font-medium text-[#1877f2]
+      shadow-sm
+      hover:bg-[#e7f0ff]
+      hover:border-[#1877f2]
+      transition-colors duration-200
+    "
+  >
+    <Share2 className="w-4 h-4" />
+    <span>Facebook</span>
+  </button>
+
+  {/* Copy link */}
+  <button
+    className="
+      inline-flex items-center gap-2
+      rounded-full border border-gray-300
+      bg-white px-4 py-1.5 text-sm font-medium text-gray-700
+      shadow-sm
+      hover:bg-gray-100
+      transition-colors duration-200
+    "
+    // onClick={() => navigator.clipboard.writeText(window.location.href)}
+    type="button"
+  >
+    <Copy className="w-4 h-4" />
+    <span>Copy link</span>
+  </button>
+</div>
+
+
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-8 pt-4">
         {news.heading}
       </h1>
