@@ -1,15 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { SubscriptionService } from "../api/payments/subscriptionService";
 import toast from "react-hot-toast";
+import { SubscriptionService } from "@/api/payments/subscriptionService";
 
-export default function PlanCard({ plan }) {
+export default function PlanCard({ plan, subscriptions = [] }) {
   const [loading, setLoading] = useState(false);
 
-  // Extract meta and ID
   const meta = plan.meta || {};
-  const planId = plan.razorpay?.id; 
+  const planId = plan.razorpay?.id;
+
+  // ✅ SOURCE OF TRUTH
+  const isSubscribed = subscriptions.some(
+    (sub) =>
+      sub.planId === planId &&
+      ["active", "authenticated", "pending"].includes(sub.status)
+  );
 
   const handleSubscribe = async () => {
     if (!planId) {
@@ -27,13 +33,10 @@ export default function PlanCard({ plan }) {
       };
 
       const res = await SubscriptionService.createSubscription(payload);
-      
-      // Access nested subscription object
-      // backend returns { success: true, data: { subscription: { ... } } }
       const subscription = res?.data?.data?.subscription;
 
       if (!subscription?.id) {
-        toast.error("Failed to create subscription: ID missing");
+        toast.error("Subscription creation failed");
         return;
       }
 
@@ -42,17 +45,15 @@ export default function PlanCard({ plan }) {
         subscription_id: subscription.id,
         name: "News Bullet Kerala",
         description: meta.description,
-        image: "/logo.jpg",
-        handler: function () {
-            // DO NOT verify here - Webhooks handle activation
-            window.location.href = "/video";
+        handler: () => {
+          // Webhooks handle activation
+          window.location.href = "/video";
         },
         theme: { color: "#E87331" },
       };
 
       const razorpay = new window.Razorpay(options);
       razorpay.open();
-
     } catch (err) {
       console.error(err);
       toast.error("Failed to start subscription");
@@ -62,33 +63,45 @@ export default function PlanCard({ plan }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-6 relative flex flex-col items-center text-center text-black">
-      {/* Status Badge */}
-      <div className="absolute top-4 right-4 bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
-        Premium
-      </div>
+    <div className="bg-white rounded-2xl shadow-xl p-6 relative text-black">
 
-      <h2 className="text-xl font-bold mt-4">{meta.name}</h2>
+      {/* Status badge */}
+      {isSubscribed && (
+        <div className="absolute top-4 right-4 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+          Subscribed
+        </div>
+      )}
 
-      <p className="text-3xl font-extrabold mt-2 text-[#231A15]">
+      <h2 className="text-xl font-bold mt-2">{meta.name}</h2>
+
+      <p className="text-3xl font-extrabold mt-2">
         ₹{meta.amount}
-        <span className="text-base text-gray-500 font-medium">/{meta.period}</span>
+        <span className="text-base text-gray-500">/{meta.period}</span>
       </p>
 
       <p className="text-sm text-gray-600 mt-1">
         Billed every {meta.interval} {meta.period}
       </p>
 
-      <p className="text-gray-700 mt-4 leading-relaxed text-sm px-2">
-        {meta.description || "Unlock premium access to all content."}
+      <p className="text-gray-700 mt-4 text-sm">
+        {meta.description || "Unlock premium access"}
       </p>
 
       <button
         onClick={handleSubscribe}
-        disabled={loading}
-        className="w-full mt-6 bg-gradient-to-r from-orange-500 to-orange-700 text-white py-3 rounded-xl font-semibold shadow-md hover:from-orange-600 hover:to-orange-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={loading || isSubscribed}
+        className={`w-full mt-6 py-3 rounded-xl font-semibold transition
+          ${
+            isSubscribed
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-orange-600 text-white hover:bg-orange-700"
+          }`}
       >
-        {loading ? "Processing..." : "Subscribe Now"}
+        {isSubscribed
+          ? "Already Subscribed"
+          : loading
+          ? "Processing..."
+          : "Subscribe Now"}
       </button>
     </div>
   );
