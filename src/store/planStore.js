@@ -156,4 +156,21 @@ export const usePlanStore = create((set) => ({
     }
   },
 
+  // USER SUBSCRIPTIONS
+  userSubscriptions: [],
+  getUserSubscriptions: async () => {
+    set({ loading: true });
+    try {
+      // Lazy import to avoid circular dependency if needed, or just standard import
+      const { SubscriptionService } = await import("@/api/payments/subscriptionService");
+      const res = await SubscriptionService.getUserSubscriptions();
+      set({ userSubscriptions: res.data.data || [] });
+    } catch (err) {
+      console.error(err);
+      // Don't block UI with error toast for this background check
+    } finally {
+      set({ loading: false });
+    }
+  },
+
 }));
