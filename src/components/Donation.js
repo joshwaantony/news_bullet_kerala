@@ -1,15 +1,24 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePlanStore } from "@/store/planStore";
+import { SubscriptionService } from "@/api/payments/subscriptionService";
 import PlanCard from "./PlanCard";
 
 export default function Donation() {
   const { plans, loading, getPlans } = usePlanStore();
+  const [subscriptions, setSubscriptions] = useState([]);
 
   useEffect(() => {
     getPlans();
+    SubscriptionService.getUserSubscriptions()
+      .then((res) => {
+        setSubscriptions(res.data.data || []);
+      })
+      .catch(() => {
+        setSubscriptions([]);
+      });
   }, []);
 
   return (
@@ -37,7 +46,11 @@ export default function Donation() {
       {/* Plans */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 w-full max-w-3xl">
         {plans?.map((plan) => (
-          <PlanCard key={plan.razorpay?.id || plan.meta?._id} plan={plan} />
+          <PlanCard
+            key={plan.razorpay?.id || plan.meta?._id}
+            plan={plan}
+            subscriptions={subscriptions}
+          />
         ))}
       </div>
 
