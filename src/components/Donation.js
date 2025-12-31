@@ -44,7 +44,7 @@ export default function Donation() {
       {loading && <p className="mt-6 text-white/90">Loading plans...</p>}
 
       {/* Plans */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 w-full max-w-3xl">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 w-full max-w-3xl">
         {plans?.map((plan) => (
           <PlanCard
             key={plan.razorpay?.id || plan.meta?._id}
@@ -52,7 +52,27 @@ export default function Donation() {
             subscriptions={subscriptions}
           />
         ))}
-      </div>
+      </div> */}
+
+      <div
+  className={`
+    mt-10 w-full max-w-3xl
+    ${
+      plans?.length === 1
+        ? "flex justify-center"
+        : "grid grid-cols-1 md:grid-cols-2 gap-8"
+    }
+  `}
+>
+  {plans?.map((plan) => (
+    <PlanCard
+      key={plan.razorpay?.id || plan.meta?._id}
+      plan={plan}
+      subscriptions={subscriptions}
+    />
+  ))}
+</div>
+
 
       {/* Continue Without Subscription */}
       <Link

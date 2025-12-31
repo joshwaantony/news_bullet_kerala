@@ -899,13 +899,7 @@ export default function Navbar() {
         {menuOpen && (
           <div className="md:hidden bg-white border-t shadow-lg animate-slideDown">
             <div className="flex flex-col px-6 py-4 gap-4">
-              <Link
-                href="/news"
-                className={pathname === "/news" ? activeClass : normalClass}
-                onClick={() => setMenuOpen(false)}
-              >
-                News
-              </Link>
+            
 
               <Link
                 href="/video"
@@ -913,6 +907,14 @@ export default function Navbar() {
                 onClick={() => setMenuOpen(false)}
               >
                 Videos
+              </Link>
+
+                <Link
+                href="/news"
+                className={pathname === "/news" ? activeClass : normalClass}
+                onClick={() => setMenuOpen(false)}
+              >
+                News
               </Link>
 
               <Link
