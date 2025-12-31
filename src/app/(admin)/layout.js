@@ -59,6 +59,7 @@ import { useAuthStore } from "@/store/authStore";
 import { useRouter } from "next/navigation";
 import Sidebar from "./dashboard/components/Sidebar";
 import Topbar from "./dashboard/components/Topbar";
+import { Toaster } from "react-hot-toast";
 
 export default function AdminLayout({ children }) {
   const router = useRouter();
@@ -83,7 +84,9 @@ export default function AdminLayout({ children }) {
       <Sidebar />
       <div className="flex-1 sm:ml-64">
         <Topbar />
-        <main className="p-6">{children}</main>
+        <main className="p-6">{children}
+           <Toaster position="top-right" />
+        </main>
       </div>
     </div>
   );

@@ -87,7 +87,10 @@
 import { create } from "zustand";
 import {
   createNewsApi,
+  deleteNewsApi,
   getAllNewsApi,
+  getNewsBySlugApi,
+  updateNewsApi,
 } from "@/api/admin/news/news.api";
 
 const useNewsStore = create((set) => ({
@@ -137,6 +140,64 @@ const useNewsStore = create((set) => ({
       });
     }
   },
+
+  // ✅ GET BY SLUG
+  fetchNewsBySlug: async (slug) => {
+    try {
+      set({ loading: true, error: null, singleNews: null });
+
+      const res = await getNewsBySlugApi(slug);
+
+      set({
+        loading: false,
+        singleNews: res?.data?.data?.news || null,
+      });
+    } catch (err) {
+      set({
+        loading: false,
+        error: "Failed to fetch news",
+        singleNews: null,
+      });
+    }
+  },
+
+
+
+updateNews: async (slug, data) => {
+  try {
+    set({ loading: true, error: null });
+
+    await updateNewsApi(slug, data);
+
+    set({ loading: false });
+  } catch (err) {
+    set({
+      loading: false,
+      error:
+        err?.response?.data?.message ||
+        "Failed to update news",
+    });
+  }
+},
+
+
+deleteNews: async (slug) => {
+  try {
+    set({ loading: true, error: null });
+
+    await deleteNewsApi(slug);
+
+    set({ loading: false });
+  } catch (err) {
+    set({
+      loading: false,
+      error:
+        err?.response?.data?.message ||
+        "Failed to delete news",
+    });
+  }
+},
+
 
   resetStatus: () =>
     set({ loading: false, error: null, success: false }),
