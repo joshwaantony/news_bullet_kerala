@@ -833,7 +833,7 @@ export default function Navbar() {
               Contact
             </Link>
 
-            <Link href="/support">
+            {/* <Link href="/support">
               <button
                 className={`px-5 py-2 rounded-lg shadow font-semibold transition ${
                   pathname === "/support"
@@ -843,7 +843,7 @@ export default function Navbar() {
               >
                 Support Us
               </button>
-            </Link>
+            </Link> */}
 
             {/* PROFILE DROPDOWN / SIGN IN */}
             {!isLoggedIn ? (
@@ -925,13 +925,13 @@ export default function Navbar() {
                 Contact
               </Link>
 
-              <Link
+              {/* <Link
                 href="/support"
                 className={pathname === "/support" ? activeClass : normalClass}
                 onClick={() => setMenuOpen(false)}
               >
                 Support Us
-              </Link>
+              </Link> */}
 
               {!isLoggedIn ? (
                 <Link

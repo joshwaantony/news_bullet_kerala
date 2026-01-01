@@ -62,91 +62,334 @@
 
 
 
+// "use client";
+
+// import React from "react";
+// import Navbar from "./Navbar";
+
+// export default function ProfilePage() {
+//   return (
+//     <div className="min-h-screen bg-[#FFFDFB]">
+//       <Navbar />
+
+//       <main className="flex flex-col items-center py-10 px-4 sm:px-6 md:px-8">
+//         <section
+//           className="w-full max-w-xl sm:max-w-2xl bg-white rounded-2xl shadow-xl p-6 sm:p-8"
+//           style={{ boxShadow: "0 4px 44px #E8D8C5" }}
+//         >
+//           {/* Header */}
+//           <h1 className="text-3xl sm:text-4xl font-bold text-[#FF9132] mb-2 sm:mb-3">
+//             My Profile
+//           </h1>
+//           <p className="text-[#73695A] text-base sm:text-lg mb-6 sm:mb-7">
+//             Manage your account and subscription
+//           </p>
+
+//           {/* Card */}
+//           <div className="bg-[#FFF8F2] rounded-xl border-t-4 border-[#FF9132] px-5 sm:px-6 py-6 sm:py-8">
+            
+//             {/* Subscription Heading */}
+//             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+//               <span className="font-bold text-xl sm:text-2xl text-[#2E211A]">
+//                 Subscription Status
+//               </span>
+
+//               <span className="bg-[#FF9132] text-white font-bold px-4 sm:px-5 py-1 rounded-full text-sm sm:text-[17px] mt-2 sm:mt-0 text-center">
+//                 ACTIVE
+//               </span>
+//             </div>
+
+//             <p className="text-[#73695A] mb-5 sm:mb-6 text-sm sm:text-[15px]">
+//               Manage your News Bullet Kerala membership
+//             </p>
+
+//             {/* Current Plan */}
+//             <div className="flex items-center bg-[#F9F6F3] rounded-lg border border-[#F3ECDF] p-4 sm:p-5 w-full mb-5 sm:mb-6">
+//               <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-[#EFA265] flex items-center justify-center mr-4 sm:mr-5">
+//                 <span className="font-bold text-white text-lg">G</span>
+//               </div>
+//               <div>
+//                 <span className="font-bold text-base sm:text-lg text-[#222]">Current Plan</span>
+//                 <div className="text-[#73695A] text-sm sm:text-[16px]">
+//                   gastlyaxom768@gmail.com
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Plan Type */}
+//             <div className="mb-5 sm:mb-6">
+//               <div className="mb-1 text-[#73695A] text-sm sm:text-[15px]">Plan Type</div>
+//               <div className="bg-gradient-to-b from-[#FFFDFB] to-[#FFF0E2] 
+//                 border border-[#F3ECDF] rounded-lg px-4 sm:px-5 py-2 sm:py-3 
+//                 text-[#FF9132] font-bold text-base sm:text-[18px] w-fit lowercase">
+//                 free
+//               </div>
+//             </div>
+
+//             {/* Pause / Cancel */}
+//             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-5 sm:mb-6">
+//               <button className="flex-1 flex items-center justify-center border border-[#F3ECDF] 
+//                 bg-white py-2.5 sm:py-3 rounded-lg font-semibold text-[#73695A] 
+//                 hover:bg-[#F7E6D5] transition text-sm sm:text-base">
+//                 <span className="mr-2 text-lg sm:text-xl">⏸</span> Pause
+//               </button>
+
+//               <button className="flex-1 flex items-center justify-center bg-[#FF4747] 
+//                 hover:bg-[#e63f3f] py-2.5 sm:py-3 rounded-lg font-semibold text-white 
+//                 transition text-sm sm:text-base">
+//                 <span className="mr-2 text-lg sm:text-xl">✖</span> Cancel
+//               </button>
+//             </div>
+
+//             {/* View Plans */}
+//             <button className="w-full border border-[#222] text-[#222] py-2.5 sm:py-3 
+//               rounded-lg font-semibold text-base sm:text-lg bg-white hover:bg-[#F9F6F3] transition">
+//               View All Plans
+//             </button>
+
+//           </div>
+//         </section>
+//       </main>
+//     </div>
+//   );
+// }
+
+
+
+
+// "use client";
+
+// import React from "react";
+// import Navbar from "./Navbar";
+
+// export default function ProfilePage() {
+//   return (
+//     <div className="min-h-screen bg-[#FFFDFB]">
+//       <Navbar />
+
+//       <main className="flex justify-center py-10 px-4 sm:px-6">
+//         <section
+//           className="w-full max-w-xl sm:max-w-2xl bg-white rounded-2xl shadow-xl p-6 sm:p-8"
+//           style={{ boxShadow: "0 6px 48px #E8D8C5" }}
+//         >
+//           {/* Header */}
+//           <div className="mb-8">
+//             <h1 className="text-3xl sm:text-4xl font-bold text-[#FF9132]">
+//               My Profile
+//             </h1>
+//             <p className="text-[#73695A] text-base sm:text-lg mt-2">
+//               Account & subscription details
+//             </p>
+//           </div>
+
+//           {/* Profile Card */}
+//           <div className="bg-gradient-to-b from-[#FFF8F2] to-[#FFFDFB]
+//             rounded-2xl border border-[#F3ECDF] p-6 sm:p-8">
+
+//             {/* Status */}
+//             <div className="flex items-center justify-between mb-6">
+//               <span className="text-lg sm:text-xl font-semibold text-[#2E211A]">
+//                 Subscription Status
+//               </span>
+
+//               <span className="inline-flex items-center gap-2
+//                 bg-green-100 text-green-700 font-semibold
+//                 px-4 py-1.5 rounded-full text-sm">
+//                 <span className="h-2 w-2 bg-green-500 rounded-full" />
+//                 Active
+//               </span>
+//             </div>
+
+//             {/* User Info */}
+//             <div className="flex items-center gap-4 bg-white rounded-xl
+//               border border-[#F3ECDF] p-4 sm:p-5 mb-6">
+              
+//               <div className="h-12 w-12 rounded-full
+//                 bg-gradient-to-br from-[#FF9132] to-[#E97A18]
+//                 flex items-center justify-center text-white
+//                 font-bold text-lg">
+//                 G
+//               </div>
+
+//               <div>
+//                 <p className="font-semibold text-[#222] text-base sm:text-lg">
+//                   Account Email
+//                 </p>
+//                 <p className="text-[#73695A] text-sm sm:text-[15px]">
+//                   gastlyaxom768@gmail.com
+//                 </p>
+//               </div>
+//             </div>
+
+//             {/* Plan Info */}
+//             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+//               {/* Plan Type */}
+//               <div className="bg-white border border-[#F3ECDF]
+//                 rounded-xl p-4">
+//                 <p className="text-[#73695A] text-sm mb-1">
+//                   Plan Type
+//                 </p>
+//                 <p className="font-bold text-[#FF9132] text-lg lowercase">
+//                   Free
+//                 </p>
+//               </div>
+
+//               {/* Expiry */}
+//               <div className="bg-white border border-[#F3ECDF]
+//                 rounded-xl p-4">
+//                 <p className="text-[#73695A] text-sm mb-1">
+//                   Valid Until
+//                 </p>
+//                 <p className="font-semibold text-[#222] text-base">
+//                   Unlimited
+//                 </p>
+//               </div>
+//             </div>
+
+//             {/* Footer Note */}
+//             <div className="mt-6 text-center text-sm text-[#9C8F7F]">
+//               You are currently on a free plan.
+//             </div>
+
+//           </div>
+//         </section>
+//       </main>
+//     </div>
+//   );
+// }
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Navbar";
+import { useProfileStore } from "@/store/profile/profile.store";
 
 export default function ProfilePage() {
+  const { user, subscriptions, loading, fetchProfile } =
+    useProfileStore();
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  // ✅ SAFE GUARD (MOST IMPORTANT FIX)
+  if (loading || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#FFFDFB]">
+        Loading profile…
+      </div>
+    );
+  }
+
+  // ✅ ACTIVE SUBSCRIPTION LOGIC
+  const activeSub = subscriptions.find((sub) =>
+    ["authenticated", "active"].includes(sub.status)
+  );
+
+  const status = activeSub ? "Active" : "Free";
+  const planType = activeSub?.notes?.plan || "Free";
+  const expiry = activeSub
+    ? new Date(activeSub.endAt).toDateString()
+    : "Unlimited";
+
   return (
     <div className="min-h-screen bg-[#FFFDFB]">
       <Navbar />
 
-      <main className="flex flex-col items-center py-10 px-4 sm:px-6 md:px-8">
+      <main className="flex justify-center py-10 px-4 sm:px-6">
         <section
           className="w-full max-w-xl sm:max-w-2xl bg-white rounded-2xl shadow-xl p-6 sm:p-8"
-          style={{ boxShadow: "0 4px 44px #E8D8C5" }}
+          style={{ boxShadow: "0 6px 48px #E8D8C5" }}
         >
           {/* Header */}
-          <h1 className="text-3xl sm:text-4xl font-bold text-[#FF9132] mb-2 sm:mb-3">
-            My Profile
-          </h1>
-          <p className="text-[#73695A] text-base sm:text-lg mb-6 sm:mb-7">
-            Manage your account and subscription
-          </p>
+          <div className="mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold text-[#FF9132]">
+              My Profile
+            </h1>
+            <p className="text-[#73695A] text-base sm:text-lg mt-2">
+              Account & subscription details
+            </p>
+          </div>
 
-          {/* Card */}
-          <div className="bg-[#FFF8F2] rounded-xl border-t-4 border-[#FF9132] px-5 sm:px-6 py-6 sm:py-8">
-            
-            {/* Subscription Heading */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-              <span className="font-bold text-xl sm:text-2xl text-[#2E211A]">
+          {/* Profile Card */}
+          <div className="bg-gradient-to-b from-[#FFF8F2] to-[#FFFDFB]
+            rounded-2xl border border-[#F3ECDF] p-6 sm:p-8">
+
+            {/* Status */}
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-lg sm:text-xl font-semibold text-[#2E211A]">
                 Subscription Status
               </span>
 
-              <span className="bg-[#FF9132] text-white font-bold px-4 sm:px-5 py-1 rounded-full text-sm sm:text-[17px] mt-2 sm:mt-0 text-center">
-                ACTIVE
+              <span
+                className={`inline-flex items-center gap-2 font-semibold
+                px-4 py-1.5 rounded-full text-sm
+                ${
+                  status === "Active"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-orange-100 text-orange-700"
+                }`}
+              >
+                <span
+                  className={`h-2 w-2 rounded-full ${
+                    status === "Active"
+                      ? "bg-green-500"
+                      : "bg-orange-500"
+                  }`}
+                />
+                {status}
               </span>
             </div>
 
-            <p className="text-[#73695A] mb-5 sm:mb-6 text-sm sm:text-[15px]">
-              Manage your News Bullet Kerala membership
-            </p>
+            {/* User Info */}
+            <div className="flex items-center gap-4 bg-white rounded-xl
+              border border-[#F3ECDF] p-4 sm:p-5 mb-6">
 
-            {/* Current Plan */}
-            <div className="flex items-center bg-[#F9F6F3] rounded-lg border border-[#F3ECDF] p-4 sm:p-5 w-full mb-5 sm:mb-6">
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-[#EFA265] flex items-center justify-center mr-4 sm:mr-5">
-                <span className="font-bold text-white text-lg">G</span>
+              <div className="h-12 w-12 rounded-full
+                bg-gradient-to-br from-[#FF9132] to-[#E97A18]
+                flex items-center justify-center text-white
+                font-bold text-lg">
+                {user.email?.charAt(0).toUpperCase()}
               </div>
+
               <div>
-                <span className="font-bold text-base sm:text-lg text-[#222]">Current Plan</span>
-                <div className="text-[#73695A] text-sm sm:text-[16px]">
-                  gastlyaxom768@gmail.com
-                </div>
+                <p className="font-semibold text-[#222] text-base sm:text-lg">
+                  Account Email
+                </p>
+                <p className="text-[#73695A] text-sm sm:text-[15px]">
+                  {user.email}
+                </p>
               </div>
             </div>
 
-            {/* Plan Type */}
-            <div className="mb-5 sm:mb-6">
-              <div className="mb-1 text-[#73695A] text-sm sm:text-[15px]">Plan Type</div>
-              <div className="bg-gradient-to-b from-[#FFFDFB] to-[#FFF0E2] 
-                border border-[#F3ECDF] rounded-lg px-4 sm:px-5 py-2 sm:py-3 
-                text-[#FF9132] font-bold text-base sm:text-[18px] w-fit lowercase">
-                free
+            {/* Plan Info */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-white border border-[#F3ECDF]
+                rounded-xl p-4">
+                <p className="text-[#73695A] text-sm mb-1">
+                  Plan Type
+                </p>
+                <p className="font-bold text-[#FF9132] text-lg lowercase">
+                  {planType}
+                </p>
+              </div>
+
+              <div className="bg-white border border-[#F3ECDF]
+                rounded-xl p-4">
+                <p className="text-[#73695A] text-sm mb-1">
+                  Valid Until
+                </p>
+                <p className="font-semibold text-[#222] text-base">
+                  {expiry}
+                </p>
               </div>
             </div>
 
-            {/* Pause / Cancel */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-5 sm:mb-6">
-              <button className="flex-1 flex items-center justify-center border border-[#F3ECDF] 
-                bg-white py-2.5 sm:py-3 rounded-lg font-semibold text-[#73695A] 
-                hover:bg-[#F7E6D5] transition text-sm sm:text-base">
-                <span className="mr-2 text-lg sm:text-xl">⏸</span> Pause
-              </button>
-
-              <button className="flex-1 flex items-center justify-center bg-[#FF4747] 
-                hover:bg-[#e63f3f] py-2.5 sm:py-3 rounded-lg font-semibold text-white 
-                transition text-sm sm:text-base">
-                <span className="mr-2 text-lg sm:text-xl">✖</span> Cancel
-              </button>
+            <div className="mt-6 text-center text-sm text-[#9C8F7F]">
+              {status === "Active"
+                ? "Thank you for being a premium subscriber."
+                : "You are currently on a free plan."}
             </div>
-
-            {/* View Plans */}
-            <button className="w-full border border-[#222] text-[#222] py-2.5 sm:py-3 
-              rounded-lg font-semibold text-base sm:text-lg bg-white hover:bg-[#F9F6F3] transition">
-              View All Plans
-            </button>
-
           </div>
         </section>
       </main>
