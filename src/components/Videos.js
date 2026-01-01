@@ -343,14 +343,19 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "./Navbar";
 import api from "@/api/axios";
+import { SubscriptionService } from "@/api/payments/subscriptionService";
 
 export default function Videos() {
   const [videos, setVideos] = useState([]);
   const [page, setPage] = useState(1);            // ⭐ your API uses pages
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [checkingInfo, setCheckingInfo] = useState(true);
+  
+  const router = useRouter();
 
   const loaderRef = useRef(null);
 
@@ -475,7 +480,27 @@ const fetchVideos = async () => {
 
   // Initial fetch
   useEffect(() => {
-    fetchVideos();
+    const checkSubscriptionAndFetch = async () => {
+      try {
+        const res = await SubscriptionService.getUserSubscriptions();
+        const subs = res?.data?.data || [];
+        const isSubscribed = subs.some((sub) =>
+          ["active", "authenticated", "pending"].includes(sub.status)
+        );
+
+        if (!isSubscribed) {
+          router.replace("/donation");
+        } else {
+          setCheckingInfo(false);
+          fetchVideos();
+        }
+      } catch (error) {
+        console.error("Subscription check failed", error);
+        router.replace("/donation");
+      }
+    };
+
+    checkSubscriptionAndFetch();
   }, []);
 
   // 🔥 Infinite scroll trigger
@@ -492,6 +517,14 @@ const fetchVideos = async () => {
     if (loaderRef.current) observer.observe(loaderRef.current);
     return () => observer.disconnect();
   }, [hasMore, loading]);
+
+  if (checkingInfo) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="w-10 h-10 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#e3e3e377]">

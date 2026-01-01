@@ -48,10 +48,10 @@ export default function UserLayout({ children }) {
       return;
     }
 
-    if (isUser) {
-      router.replace("/donation");
-      return;
-    }
+    // if (isUser) {
+    //   router.replace("/donation");
+    //   return;
+    // }
   }, [isLoggedIn, isUser, isAdmin]);
 
   return <>{children}</>;
