@@ -107,7 +107,7 @@ export default function ContactPage() {
     {/* Reusable Style */}
     {[
       { title: "YouTube", icon: <FaYoutube /> , link: "https://www.youtube.com/@newsbulletkerala" },
-      { title: "Email", icon: <FaEnvelope />, link: "" },
+      { title: "Email", icon: <FaEnvelope />, link: "mailto:support@newsbulletkerala.com" },
       { title: "Facebook", icon: <FaFacebook />, link: "https://www.facebook.com/nbkerala" },
       { title: "Instagram", icon: <FaInstagram />, link: "https://www.instagram.com/newsbullet_kerala" },
       { title: "WhatsApp", icon: <FaWhatsapp />, link: "https://wa.me/8075757976" },
