@@ -310,6 +310,24 @@ export default function Donation() {
       <p className="text-xs mt-5 max-w-md opacity-90">
         Your subscription keeps News Bullet Kerala independent and ad-free.
       </p>
+
+      {/* Legal Links - Required for Razorpay */}
+      <div className="mt-8 text-xs text-white/80 max-w-md">
+        <p className="mb-2">By subscribing, you agree to our:</p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Link href="/terms" className="underline hover:text-white transition">
+            Terms & Conditions
+          </Link>
+          <span className="text-white/60">|</span>
+          <Link href="/privacy" className="underline hover:text-white transition">
+            Privacy Policy
+          </Link>
+          <span className="text-white/60">|</span>
+          <Link href="/refund" className="underline hover:text-white transition">
+            Refund Policy
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

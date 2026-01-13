@@ -35,6 +35,7 @@
 import { useEffect } from "react";
 import { useAuthStore } from "@/store/authStore";
 import { useRouter } from "next/navigation";
+import Footer from "@/components/Footer";
 
 export default function UserLayout({ children }) {
   const router = useRouter();
@@ -54,5 +55,10 @@ export default function UserLayout({ children }) {
     // }
   }, [isLoggedIn, isUser, isAdmin]);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <Footer />
+    </>
+  );
 }
