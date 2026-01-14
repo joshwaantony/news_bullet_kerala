@@ -1,6 +1,16 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Footer() {
+  const [currentYear, setCurrentYear] = useState(2024);
+
+  useEffect(() => {
+    // Set year on client side to avoid hydration mismatch
+    setCurrentYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className="bg-gradient-to-r from-[#563D2F] to-[#E87331] text-white py-8 px-4">
       <div className="max-w-7xl mx-auto">
@@ -71,7 +81,7 @@ export default function Footer() {
         <div className="border-t border-white/20 pt-6 mt-6">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/80">
             <p>
-              © {new Date().getFullYear()} News Bullet Kerala. All rights reserved.
+              © {currentYear} News Bullet Kerala. All rights reserved.
             </p>
             <p className="mt-2 md:mt-0">
               Powered by Razorpay for secure payments

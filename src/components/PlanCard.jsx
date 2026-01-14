@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { SubscriptionService } from "@/api/payments/subscriptionService";
 
 export default function PlanCard({ plan, subscriptions = [] }) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const meta = plan.meta || {};
@@ -44,20 +46,40 @@ export default function PlanCard({ plan, subscriptions = [] }) {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         subscription_id: subscription.id,
         name: "News Bullet Kerala",
-        description: meta.description,
-        handler: () => {
-          // Webhooks handle activation
-          window.location.href = "/video";
+        description: meta.description || `Subscribe to ${meta.name}`,
+        handler: function (response) {
+          // Payment successful
+          toast.success("Subscription activated! Redirecting to videos...");
+          setLoading(false);
+          // Redirect to video page after successful payment
+          setTimeout(() => {
+            router.push("/video");
+          }, 1000);
+        },
+        prefill: {
+          // You can prefill user details if available
         },
         theme: { color: "#E87331" },
+        modal: {
+          ondismiss: function () {
+            // User closed the payment modal
+            toast.error("Payment cancelled");
+            setLoading(false);
+          },
+        },
       };
 
       const razorpay = new window.Razorpay(options);
+      
+      razorpay.on("payment.failed", function (response) {
+        toast.error("Payment failed. Please try again.");
+        setLoading(false);
+      });
+
       razorpay.open();
     } catch (err) {
       console.error(err);
       toast.error("Failed to start subscription");
-    } finally {
       setLoading(false);
     }
   };

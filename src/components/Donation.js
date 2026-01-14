@@ -295,17 +295,15 @@ export default function Donation() {
         ))}
       </div>
 
-      {/* Continue Without Subscription */}
-      {!isSubscribed && (
-        <Link
-          href="/video"
-          className="border border-white text-white py-3 rounded-xl mt-10
-          w-full max-w-md hover:bg-white hover:text-orange-700
-          transition-all font-medium"
-        >
-          Continue Without Subscription
-        </Link>
-      )}
+      {/* Continue to Videos Button */}
+      <button
+        onClick={() => router.push("/video")}
+        className="border border-white text-white py-3 rounded-xl mt-10
+        w-full max-w-md hover:bg-white hover:text-orange-700
+        transition-all font-medium text-center"
+      >
+        {isSubscribed ? "Continue to Videos" : "Continue Without Subscription"}
+      </button>
 
       <p className="text-xs mt-5 max-w-md opacity-90">
         Your subscription keeps News Bullet Kerala independent and ad-free.

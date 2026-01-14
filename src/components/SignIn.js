@@ -571,6 +571,7 @@ import React, { useState, useEffect } from "react";
 import { useAuthStore } from "@/store/authStore";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function SignIn() {
   const router = useRouter();
@@ -579,6 +580,8 @@ export default function SignIn() {
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const { login, loading, error, isLoggedIn, isAdmin, isUser } = useAuthStore();
 
@@ -605,6 +608,10 @@ export default function SignIn() {
     }
     if (!form.password.trim()) {
       toast.error("Password is required");
+      return false;
+    }
+    if (form.password.length < 3) {
+      toast.error("Password must be at least 3 characters");
       return false;
     }
     return true;
@@ -680,14 +687,26 @@ export default function SignIn() {
           {/* PASSWORD */}
           <div>
             <label className="block text-sm font-medium text-[#2b2019] mb-1">Password</label>
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              placeholder="••••••••"
-              className="w-full px-4 py-3 bg-[#fbf8f6] border border-[#eee5de] rounded-lg outline-none focus:ring-2 focus:ring-orange-200 placeholder:text-gray-300 text-black"
-            />
+            <div className="relative">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={form.password}
+                onChange={handleChange}
+                placeholder="••••••••"
+                className="w-full px-4 py-3 pr-10 bg-[#fbf8f6] border border-[#eee5de] 
+                rounded-lg outline-none focus:ring-2 focus:ring-orange-200 
+                placeholder:text-gray-300 text-black"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 
+                hover:text-gray-700 focus:outline-none"
+              >
+                {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+              </button>
+            </div>
           </div>
 
           {/* Store Error */}

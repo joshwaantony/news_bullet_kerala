@@ -758,6 +758,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
+import { SubscriptionService } from "@/api/payments/subscriptionService";
 import { FiUser, FiChevronDown } from "react-icons/fi";
 
 export default function Navbar() {
@@ -770,6 +771,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [checkingSubscription, setCheckingSubscription] = useState(false);
 
   // 🔥 Hide navbar on scroll
   useEffect(() => {
@@ -782,6 +785,33 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScroll]);
+
+  // 🔥 Check subscription status
+  useEffect(() => {
+    const checkSubscription = async () => {
+      if (!isLoggedIn) {
+        setIsSubscribed(false);
+        return;
+      }
+
+      try {
+        setCheckingSubscription(true);
+        const res = await SubscriptionService.getUserSubscriptions();
+        const subs = res?.data?.data || [];
+        const hasActiveSubscription = subs.some((sub) =>
+          ["active", "authenticated", "pending"].includes(sub.status)
+        );
+        setIsSubscribed(hasActiveSubscription);
+      } catch (error) {
+        console.error("Failed to check subscription:", error);
+        setIsSubscribed(false);
+      } finally {
+        setCheckingSubscription(false);
+      }
+    };
+
+    checkSubscription();
+  }, [isLoggedIn]);
 
   const activeClass = "text-orange-600 font-semibold";
   const normalClass = "text-black font-medium hover:text-orange-600 transition";
@@ -833,17 +863,17 @@ export default function Navbar() {
               Contact
             </Link>
 
-            {/* <Link href="/support">
-              <button
-                className={`px-5 py-2 rounded-lg shadow font-semibold transition ${
-                  pathname === "/support"
-                    ? "text-white bg-gradient-to-r from-orange-500 to-orange-700"
-                    : "text-white bg-gradient-to-r from-orange-400 to-orange-700"
-                }`}
+            {/* SUBSCRIPTION BUTTON - Only show if logged in and not subscribed */}
+            {isLoggedIn && !isSubscribed && !checkingSubscription && (
+              <Link
+                href="/donation"
+                className="px-5 py-2 rounded-lg shadow font-semibold transition
+                text-white bg-gradient-to-r from-orange-500 to-orange-700
+                hover:from-orange-600 hover:to-orange-800"
               >
-                Support Us
-              </button>
-            </Link> */}
+                Subscribe
+              </Link>
+            )}
 
             {/* PROFILE DROPDOWN / SIGN IN */}
             {!isLoggedIn ? (
@@ -925,13 +955,18 @@ export default function Navbar() {
                 Contact
               </Link>
 
-              {/* <Link
-                href="/support"
-                className={pathname === "/support" ? activeClass : normalClass}
-                onClick={() => setMenuOpen(false)}
-              >
-                Support Us
-              </Link> */}
+              {/* SUBSCRIPTION BUTTON - Only show if logged in and not subscribed */}
+              {isLoggedIn && !isSubscribed && !checkingSubscription && (
+                <Link
+                  href="/donation"
+                  className="px-5 py-2 rounded-lg shadow font-semibold transition
+                  text-white bg-gradient-to-r from-orange-500 to-orange-700
+                  hover:from-orange-600 hover:to-orange-800 text-center"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Subscribe
+                </Link>
+              )}
 
               {!isLoggedIn ? (
                 <Link

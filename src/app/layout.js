@@ -65,7 +65,7 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body>
+      <body suppressHydrationWarning>
            <Toaster position="top-right" reverseOrder={false} />
         {children}
       </body>
