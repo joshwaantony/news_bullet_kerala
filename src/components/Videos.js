@@ -73,15 +73,15 @@ const fetchVideos = async () => {
           ["active", "authenticated", "pending"].includes(sub.status)
         );
 
-        if (!isSubscribed) {
-          router.replace("/donation");
-        } else {
-          setCheckingInfo(false);
-          fetchVideos();
-        }
+        // Allow access regardless of subscription status
+        // Users can view videos even without subscription
+        setCheckingInfo(false);
+        fetchVideos();
       } catch (error) {
         console.error("Subscription check failed", error);
-        router.replace("/donation");
+        // Even if subscription check fails, allow access to videos
+        setCheckingInfo(false);
+        fetchVideos();
       }
     };
 
