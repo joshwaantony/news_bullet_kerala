@@ -105,7 +105,16 @@ export default function PrivacyPage() {
                 All payment transactions are processed securely through Razorpay, a PCI-DSS compliant 
                 payment gateway. We do not store your complete credit card or debit card information 
                 on our servers. Razorpay handles all payment data in accordance with their privacy 
-                policy and security standards.
+                policy and security standards. By using our payment services, you also agree to Razorpay's{" "}
+                <a 
+                  href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/terms" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#E87331] hover:underline"
+                >
+                  Terms and Conditions
+                </a>
+                .
               </p>
             </section>
 
@@ -207,7 +216,66 @@ export default function PrivacyPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-[#563D2F] mb-4">13. Contact Us</h2>
+              <h2 className="text-2xl font-bold text-[#563D2F] mb-4">13. Payment Gateway Policies</h2>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                All payments are processed through Razorpay. By using our payment services, you agree to Razorpay's policies:
+              </p>
+              <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/terms" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Terms & Conditions
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/privacy" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Privacy Policy
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/refund" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Refund Policy
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/shipping" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Shipping Policy
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/contact_us" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Contact Us
+                  </a>
+                </p>
+              </div>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-[#563D2F] mb-4">14. Contact Us</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 If you have any questions, concerns, or requests regarding this Privacy Policy 
                 or our data practices, please contact us:

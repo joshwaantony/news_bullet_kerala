@@ -310,7 +310,7 @@ export default function Donation() {
       </p>
 
       {/* Legal Links - Required for Razorpay */}
-      <div className="mt-8 text-xs text-white/80 max-w-md">
+      {/* <div className="mt-8 text-xs text-white/80 max-w-md">
         <p className="mb-2">By subscribing, you agree to our:</p>
         <div className="flex flex-wrap justify-center gap-3">
           <Link href="/terms" className="underline hover:text-white transition">
@@ -324,6 +324,80 @@ export default function Donation() {
           <Link href="/refund" className="underline hover:text-white transition">
             Refund Policy
           </Link>
+        </div>
+      </div> */}
+
+         <div className="max-w-7xl mx-auto">
+        {/* Razorpay Policy Links */}
+        <div className="pt-4 border-t border-white/20">
+          <h3 className="font-semibold text-lg mb-4">
+            Payment Gateway Policies
+          </h3>
+
+          <div className="flex flex-wrap gap-4 text-sm">
+            <a
+              href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-orange-200 transition underline"
+            >
+              Razorpay Terms
+            </a>
+
+            <span className="text-white/60">|</span>
+
+            <a
+              href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-orange-200 transition underline"
+            >
+              Razorpay Privacy
+            </a>
+
+            <span className="text-white/60">|</span>
+
+            <a
+              href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/refund"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-orange-200 transition underline"
+            >
+              Razorpay Refund
+            </a>
+
+            <span className="text-white/60">|</span>
+
+            <a
+              href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/shipping"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-orange-200 transition underline"
+            >
+              Razorpay Shipping
+            </a>
+
+            <span className="text-white/60">|</span>
+
+            <a
+              href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/contact_us"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-orange-200 transition underline"
+            >
+              Razorpay Contact
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-white/20 pt-4 mt-6">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/80">
+            <p>©  News Bullet Kerala. All rights reserved.</p>
+            <p className="mt-2 md:mt-0">
+              Powered by Razorpay for secure payments
+            </p>
+          </div>
         </div>
       </div>
     </div>

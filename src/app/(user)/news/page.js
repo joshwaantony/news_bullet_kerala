@@ -5,6 +5,7 @@
 "use client";
 
 import { newsService } from "@/api/news/newsService";
+import Footer from "@/components/Footer";
 import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
 import NewsCard from "@/components/news/NewsCard";
@@ -128,6 +129,8 @@ const Page = () => {
           ))}
         </div>
       </section>
+
+      <Footer/>
     </div>
   );
 };
