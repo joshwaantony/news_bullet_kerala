@@ -59,7 +59,16 @@ export default function TermsPage() {
               <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
                 <li>You agree to pay the subscription fees as displayed at the time of purchase</li>
                 <li>Subscriptions will automatically renew unless cancelled before the renewal date</li>
-                <li>All payments are processed securely through Razorpay</li>
+                <li>All payments are processed securely through Razorpay. By using our payment services, you also agree to Razorpay's{" "}
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/terms" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Terms and Conditions
+                  </a>
+                </li>
                 <li>Prices are subject to change with prior notice to existing subscribers</li>
                 <li>Refunds are subject to our Refund Policy</li>
               </ul>
@@ -151,7 +160,66 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-[#563D2F] mb-4">12. Contact Information</h2>
+              <h2 className="text-2xl font-bold text-[#563D2F] mb-4">12. Payment Gateway Terms</h2>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                All payments are processed through Razorpay. By using our payment services, you agree to Razorpay's policies:
+              </p>
+              <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/terms" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Terms & Conditions
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/privacy" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Privacy Policy
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/refund" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Refund Policy
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/shipping" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Shipping Policy
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/contact_us" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Contact Us
+                  </a>
+                </p>
+              </div>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-[#563D2F] mb-4">13. Contact Information</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 If you have any questions about these Terms and Conditions, please contact us at:
               </p>

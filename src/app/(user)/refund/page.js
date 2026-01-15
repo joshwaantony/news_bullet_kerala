@@ -127,7 +127,17 @@ export default function RefundPage() {
               </ul>
               <p className="text-gray-700 leading-relaxed mb-4">
                 Note: If the original payment method is no longer valid, please contact our 
-                support team to arrange an alternative refund method.
+                support team to arrange an alternative refund method. All refunds are processed through Razorpay 
+                in accordance with their{" "}
+                <a 
+                  href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/terms" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#E87331] hover:underline"
+                >
+                  Terms and Conditions
+                </a>
+                .
               </p>
             </section>
 
@@ -208,6 +218,65 @@ export default function RefundPage() {
                 will be communicated to active subscribers via email. Your continued use of our 
                 services after such changes constitutes acceptance of the updated policy.
               </p>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-[#563D2F] mb-4">11. Payment Gateway Policies</h2>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                All refunds are processed through Razorpay. By using our payment services, you agree to Razorpay's policies:
+              </p>
+              <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/terms" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Terms & Conditions
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/privacy" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Privacy Policy
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/refund" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Refund Policy
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/shipping" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Shipping Policy
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <a 
+                    href="https://merchant.razorpay.com/policy/Rw9b1isAdIz9Q0/contact_us" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#E87331] hover:underline"
+                  >
+                    Razorpay Contact Us
+                  </a>
+                </p>
+              </div>
             </section>
 
             <section className="mb-8 bg-yellow-50 border-l-4 border-yellow-400 p-4">
