@@ -7,6 +7,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "./Navbar";
 import api from "@/api/axios";
+import publicAxios from "@/api/publicAxios";
 import { SubscriptionService } from "@/api/payments/subscriptionService";
 
 export default function Videos() {
@@ -15,52 +16,56 @@ export default function Videos() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [checkingInfo, setCheckingInfo] = useState(true);
-  
+
+
   const router = useRouter();
 
   const loaderRef = useRef(null);
 
-const API_URL = `https://newsbulletkerala.com/server/api/youtube`;
+  // const API_URL = `https://newsbulletkerala.com/api/youtube`;
 
-const fetchVideos = async () => {
-  if (!hasMore || loading) return;
+  const fetchVideos = async () => {
+    if (!hasMore || loading) return;
 
-  setLoading(true);
+    setLoading(true);
 
-  try {
-    const res = await api.get(`${API_URL}?page=${page}`);
+    try {
+      const res = await publicAxios.get("https://newsbulletkerala.com/api/youtube", {
+        params: { page },
+      });
 
-    // ⛔ If API fails — Axios throws error before here, so no res.ok needed
-    console.log("API Response:", res);
 
-    // Axios always returns data inside res.data
-    const json = res.data;
+      // ⛔ If API fails — Axios throws error before here, so no res.ok needed
+      console.log("API Response:", res);
 
-    // Validate structure
-    if (!json?.data?.videos || !Array.isArray(json.data.videos)) {
-      console.warn("Invalid API response format");
-      setHasMore(false);
-      setLoading(false);
-      return;
+      // Axios always returns data inside res.data
+      const json = res.data;
+
+      // Validate structure
+      if (!json?.data?.videos || !Array.isArray(json.data.videos)) {
+        console.warn("Invalid API response format");
+        setHasMore(false);
+        setLoading(false);
+        return;
+      }
+
+      // Append new videos
+      setVideos((prev) => [...prev, ...json.data.videos]);
+
+      // Pagination logic
+      if (json.data.hasMore === true) {
+        setPage((prev) => prev + 1);
+      } else {
+        setHasMore(false);
+      }
+
+    } catch (err) {
+      console.error("Network/API Error:", err);
+      setHasMore(false); // stop infinite scroll
     }
 
-    // Append new videos
-    setVideos((prev) => [...prev, ...json.data.videos]);
-
-    // Pagination logic
-    if (json.data.hasMore === true) {
-      setPage((prev) => prev + 1);
-    } else {
-      setHasMore(false);
-    }
-
-  } catch (err) {
-    console.error("Network/API Error:", err);
-    setHasMore(false); // stop infinite scroll
-  }
-
-  setLoading(false);
-};
+    setLoading(false);
+  };
 
 
   // Initial fetch
@@ -116,22 +121,22 @@ const fetchVideos = async () => {
       <Navbar />
 
 
-<section className="w-full h-[300px] bg-white  relative">
-  <img
-    src="/banner.jpg"
-    alt="Banner"
-    className="w-full h-full md:block hidden  object-cover"
-    
+      <section className="w-full h-[300px] bg-white  relative">
+        <img
+          src="/banner.jpg"
+          alt="Banner"
+          className="w-full h-full md:block hidden  object-cover"
 
-  />
-    <img
-    src="/mobile.png"
-    alt="Banner"
-    className="w-full h-full md:hidden block object-contain"
-    
 
-  />
-</section>
+        />
+        <img
+          src="/mobile.png"
+          alt="Banner"
+          className="w-full h-full md:hidden block object-contain"
+
+
+        />
+      </section>
 
       {/* FEATURED SECTION */}
       <section className="max-w-7xl mx-auto px-6 py-10">
@@ -147,7 +152,7 @@ const fetchVideos = async () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {videos.map((v, i) => (
             <div
-               key={`${v.videoId}-${i}`}
+              key={`${v.videoId}-${i}`}
               className="rounded-xl overflow-hidden shadow-md border bg-white hover:scale-[1.02] transition"
             >
               <a
@@ -201,10 +206,10 @@ const fetchVideos = async () => {
             <p className="text-gray-500 text-center">No more videos available.</p>
           )} */}
           {!hasMore && videos.length === 0 && (
-  <p className="text-center text-red-500 font-medium">
-    Failed to load videos. Please try again later.
-  </p>
-)}
+            <p className="text-center text-red-500 font-medium">
+              Failed to load videos. Please try again later.
+            </p>
+          )}
 
         </div>
       </section>

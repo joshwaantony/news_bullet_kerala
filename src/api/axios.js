@@ -5,7 +5,7 @@ import axios from "axios";
 import { useAuthStore } from "@/store/authStore";
 
 const api = axios.create({
-  baseURL: "https://newsbulletkerala.com/server/api/v1/",
+  baseURL: "https://newsbulletkerala.com/api/v1",
   // baseURL: "https://72t09sg9-4000.inc1.devtunnels.ms/api/v1/",
   headers: { "Content-Type": "application/json" },
   withCredentials: true, // important for refresh token cookie
@@ -32,7 +32,9 @@ api.interceptors.response.use(
 
       try {
         const refreshRes = await axios.get(
-          "https://newsbulletkerala.com/server/api/v1/auth/refresh-token",
+          "https://newsbulletkerala.com/api/v1/auth/refresh-token",
+                    // "https://72t09sg9-4000.inc1.devtunnels.ms/api/v1/auth/refresh-token",
+
           { withCredentials: true }
         );
 

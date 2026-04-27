@@ -1,72 +1,4 @@
-// import Navbar from "@/app/components/Navbar";
-// import {
-//   FaYoutube,
-//   FaEnvelope,
-//   FaFacebook,
-//   FaInstagram,
-//   FaWhatsapp
-// } from "react-icons/fa";
 
-// export default function ContactPage() {
-//   return (
-//     <>
-//     <Navbar/>
-
-    
-//     <div className="min-h-screen bg-gradient-to-r from-[#E87331] to-[#563D2F] py-16  px-6 text-white">
-//       {/* Heading */}
-//       <div className="max-w-3xl mx-auto text-center mb-12">
-//         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-//           Contact Us
-//         </h1>
-//         <p className="text-lg">
-//           Reach out to us anytime. We’re always here to listen.
-//         </p>
-//       </div>
-
-//       {/* White Card Box (Same as Support Page) */}
-//      <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur-xl text-black shadow-2xl 
-//                 rounded-3xl py-4 px-3 sm:p-8 md:p-14">
-
-//   {/* Single Column Items */}
-//   <div className="flex flex-col gap-4">
-
-//     {/* Reusable Style */}
-//     {[
-//       { title: "YouTube", icon: <FaYoutube /> , link: "https://www.youtube.com/@newsbulletkerala" },
-//       { title: "Email", icon: <FaEnvelope />, link: "" },
-//       { title: "Facebook", icon: <FaFacebook />, link: "https://www.facebook.com/nbkerala" },
-//       { title: "Instagram", icon: <FaInstagram />, link: "https://www.instagram.com/newsbullet_kerala" },
-//       { title: "WhatsApp", icon: <FaWhatsapp />, link: "https://wa.me/8075757976" },
-//     ].map((item, index) => (
-//       <a
-//         key={index}
-//         href={item.link}
-//         target="_blank"
-//         className="group p-3 sm:p-5 rounded-2xl border bg-white shadow-md hover:shadow-xl 
-//                    transition-all flex items-center justify-between hover:-translate-y-1
-//                    border-gray-200 hover:border-transparent hover:bg-gradient-to-r 
-//                    from-[#E87331] to-[#563D2F]"
-//       >
-//         {/* Title */}
-//         <span className="text-lg font-semibold 
-//                          group-hover:text-white transition-all">
-//           {item.title}
-//         </span>
-
-//         {/* Icon */}
-//         <span className="text-3xl text-[#E87331] group-hover:text-white transition-all">
-//           {item.icon}
-//         </span>
-//       </a>
-//     ))}
-//   </div>
-// </div>
-
-//     </div>
-//     </>
-//   );
-// }
 
 
 
@@ -111,7 +43,7 @@ export default function ContactPage() {
       { title: "Email", icon: <FaEnvelope />, link: "mailto:support@newsbulletkerala.com" },
       { title: "Facebook", icon: <FaFacebook />, link: "https://www.facebook.com/nbkerala" },
       { title: "Instagram", icon: <FaInstagram />, link: "https://www.instagram.com/newsbullet_kerala" },
-      { title: "WhatsApp", icon: <FaWhatsapp />, link: "https://wa.me/8075757976" },
+      { title: "WhatsApp", icon: <FaWhatsapp />, link: "https://wa.me/+918075757976" },
     ].map((item, index) => (
       <a
         key={index}

@@ -1,7 +1,4 @@
 
-
-
-
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { AuthService } from "@/api/auth/authService";
@@ -18,12 +15,52 @@ export const useAuthStore = create(
       loading: false,
       error: null,
 
+      // =====================
       // LOGIN
-      login: async (email, password) => {
+      // =====================
+ login: async (identifier, password) => {
+  set({ loading: true, error: null });
+
+  try {
+    const res = await AuthService.login(identifier, password);
+
+    const user = res?.data?.user;
+    const token = res?.data?.accessToken;
+    const role = user?.role;
+
+    set({
+      user,
+      role,
+      accessToken: token,
+      isLoggedIn: true,
+      isAdmin: role === "admin",
+      isUser: role === "user",
+      loading: false,
+    });
+
+    return res.data;
+  } catch (err) {
+    set({
+      error: err.response?.data?.message || "Login failed",
+      loading: false,
+    });
+    throw err;
+  }
+},
+
+      // =====================
+      // REGISTER (UPDATED 🔥)
+      // =====================
+      register: async (name, email, password, phone) => {
         set({ loading: true, error: null });
 
         try {
-          const res = await AuthService.login(email, password);
+          const res = await AuthService.register({
+            name,
+            email,
+            password,
+            phone,
+          });
 
           const user = res?.data?.user;
           const token = res?.data?.accessToken;
@@ -43,37 +80,6 @@ export const useAuthStore = create(
           return res.data;
         } catch (err) {
           set({
-            error: err.response?.data?.message || "Login failed",
-            loading: false,
-          });
-          throw err;
-        }
-      },
-
-      // REGISTER
-      register: async (name, email, password) => {
-        set({ loading: true, error: null });
-
-        try {
-          const res = await AuthService.register(name, email, password);
-
-          const user = res?.data?.user;
-          const token = res?.data?.accessToken;
-          const role = user?.role;
-
-          set({
-            user,
-            role,
-            accessToken: token,
-            isLoggedIn: true,
-            isAdmin: role === "admin",
-            isUser: role === "user",
-            loading: false,
-          });
-
-          return res.data;
-        } catch (err) {
-          set({
             error: err.response?.data?.message || "Register failed",
             loading: false,
           });
@@ -81,6 +87,9 @@ export const useAuthStore = create(
         }
       },
 
+      // =====================
+      // LOGOUT
+      // =====================
       logout: () => {
         set({
           user: null,

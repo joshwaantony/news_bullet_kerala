@@ -1,12 +1,22 @@
-import { registerApi } from "./authApi";
-import { loginApi } from "./authApi";
+import { registerApi, loginApi } from "./authApi";
 
 export const AuthService = {
-  login: async (email, password) => {
-    return await loginApi(email, password);
+  // =====================
+  // LOGIN
+  // =====================
+  login: async (identifier, password) => {
+    return await loginApi(identifier, password);
   },
 
-  register: async (name, email, password) => {
-    return await registerApi(name, email, password);
+  // =====================
+  // REGISTER (UPDATED 🔥)
+  // =====================
+  register: async ({ name, email, password, phone }) => {
+    return await registerApi({
+      name,
+      email,
+      password,
+      phone,
+    });
   },
 };

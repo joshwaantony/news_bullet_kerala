@@ -1,13 +1,19 @@
+
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { SubscriptionService } from "@/api/payments/subscriptionService";
+import { useAuthStore } from "@/store/authStore";
 
 export default function PlanCard({ plan, subscriptions = [] }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+  // ✅ Get user from auth store
+  const { user } = useAuthStore();
+  
 
   const meta = plan.meta || {};
   const planId = plan.razorpay?.id;
@@ -16,7 +22,7 @@ export default function PlanCard({ plan, subscriptions = [] }) {
   const isSubscribed = subscriptions.some(
     (sub) =>
       sub.planId === planId &&
-      ["active", "authenticated", "pending"].includes(sub.status)
+      ["active", "authenticated", "pending"].includes(sub.status),
   );
 
   const handleSubscribe = async () => {
@@ -47,22 +53,24 @@ export default function PlanCard({ plan, subscriptions = [] }) {
         subscription_id: subscription.id,
         name: "News Bullet Kerala",
         description: meta.description || `Subscribe to ${meta.name}`,
-        handler: function (response) {
-          // Payment successful
+
+        // ✅ PREFILL USER DETAILS (PHONE SENT 🔥)
+        prefill: {
+          name: user?.name || user?.fullName || "",
+          email: user?.email || "",
+          contact: user?.phone || "", // 👈 PHONE NUMBER
+        },
+
+        theme: { color: "#E87331" },
+
+        handler: function () {
           toast.success("Subscription activated! Redirecting to videos...");
           setLoading(false);
-          // Redirect to video page after successful payment
-          setTimeout(() => {
-            router.push("/video");
-          }, 1000);
+          setTimeout(() => router.push("/video"), 1000);
         },
-        prefill: {
-          // You can prefill user details if available
-        },
-        theme: { color: "#E87331" },
+
         modal: {
           ondismiss: function () {
-            // User closed the payment modal
             toast.error("Payment cancelled");
             setLoading(false);
           },
@@ -70,8 +78,8 @@ export default function PlanCard({ plan, subscriptions = [] }) {
       };
 
       const razorpay = new window.Razorpay(options);
-      
-      razorpay.on("payment.failed", function (response) {
+
+      razorpay.on("payment.failed", function () {
         toast.error("Payment failed. Please try again.");
         setLoading(false);
       });
@@ -86,7 +94,6 @@ export default function PlanCard({ plan, subscriptions = [] }) {
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-6 relative text-black">
-
       {/* Status badge */}
       {isSubscribed && (
         <div className="absolute top-4 right-4 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
@@ -122,8 +129,8 @@ export default function PlanCard({ plan, subscriptions = [] }) {
         {isSubscribed
           ? "Already Subscribed"
           : loading
-          ? "Processing..."
-          : "Subscribe Now"}
+            ? "Processing..."
+            : "Subscribe Now"}
       </button>
     </div>
   );
